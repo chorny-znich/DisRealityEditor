@@ -1,5 +1,5 @@
-// DisRealityGF application
-// A basic DisRealityGF application
+// DisRealityEditor
+// Create maps for games developed by the DisRealityGF
 // version 0.1.0
 #include "game.h"
 
