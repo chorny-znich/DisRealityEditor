@@ -26,10 +26,12 @@ void Game::init()
   buttonText.setCharacterSize(50);
   buttonText.setFillColor(sf::Color::Black);
 
-  buttonText.setString("About");
-  dr::TextManager::load("AboutButton", buttonText);
+  buttonText.setString("Create map");
+  dr::TextManager::load("create_map_button", buttonText);
+  buttonText.setString("Show map");
+  dr::TextManager::load("show_map_button", buttonText);
   buttonText.setString("Exit");
-  dr::TextManager::load("ExitButton", buttonText);
+  dr::TextManager::load("exit_button", buttonText);
   buttonText.setString("Back");
   dr::TextManager::load("BackButton", buttonText);
 

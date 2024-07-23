@@ -7,9 +7,12 @@ void MenuScreen::init()
 {
   mBackground.setTexture(dr::Textures::get("MenuScreenBackground"));
 	
-  dr::Button buttonAbout( { 200, 75 }, dr::TextManager::get("AboutButton"));
-	buttonAbout.setPosition({ 900, 800 });
-  mButtons.push_back(buttonAbout);
+	dr::Button createMapButton({ 200, 75 }, dr::TextManager::get("create_map_button"));
+	createMapButton.setPosition({ 900, 700 });
+	mButtons.push_back(createMapButton);
+  dr::Button showMapButton( { 200, 75 }, dr::TextManager::get("show_map_button"));
+	showMapButton.setPosition({ 900, 800 });
+  mButtons.push_back(showMapButton);
   dr::Button buttonExit( { 200, 75 }, dr::TextManager::get("ExitButton"));
 	buttonExit.setPosition( { 900, 900 } );
   mButtons.push_back(buttonExit);
