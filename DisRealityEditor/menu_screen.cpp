@@ -13,7 +13,7 @@ void MenuScreen::init()
   dr::Button showMapButton( { 200, 75 }, dr::TextManager::get("show_map_button"));
 	showMapButton.setPosition({ 900, 800 });
   mButtons.push_back(showMapButton);
-  dr::Button buttonExit( { 200, 75 }, dr::TextManager::get("ExitButton"));
+  dr::Button buttonExit( { 200, 75 }, dr::TextManager::get("exit_button"));
 	buttonExit.setPosition( { 900, 900 } );
   mButtons.push_back(buttonExit);
 }
@@ -41,7 +41,7 @@ void MenuScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Vect
 	case 0:
 		ScreenManager::createScreen(GameData::Screens::ABOUT);
 		break;
-	case 1:
+	case 2:
 		dr::GameState::destroyScreen();
 		break;
 	}
