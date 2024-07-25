@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="about_screen.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu_screen.cpp" />
     <ClCompile Include="screen_manager.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="about_screen.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_data.h" />
+    <ClInclude Include="location.h" />
     <ClInclude Include="menu_screen.h" />
     <ClInclude Include="screen_manager.h" />
   </ItemGroup>

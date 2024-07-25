@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <utility>
 #include <SFML/System.hpp>
 
 namespace GameData {
