@@ -19,6 +19,9 @@
     <Filter Include="Исходные файлы\Map">
       <UniqueIdentifier>{492d87d5-7679-4c6c-ab58-84a6725a021a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\Map">
+      <UniqueIdentifier>{1f3f75c3-241c-4ad7-878e-3ab1a2634354}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,10 +42,16 @@
     <ClCompile Include="location.cpp">
       <Filter>Исходные файлы\Map</Filter>
     </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>Файлы заголовков\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="config\engine_config.ini">
       <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="map\map_0.ini">
+      <Filter>Файлы ресурсов\Map</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +71,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="location.h">
+      <Filter>Файлы заголовков\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
       <Filter>Файлы заголовков\Map</Filter>
     </ClInclude>
   </ItemGroup>

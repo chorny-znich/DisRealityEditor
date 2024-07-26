@@ -157,17 +157,20 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="menu_screen.cpp" />
     <ClCompile Include="screen_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config\engine_config.ini" />
+    <None Include="map\map_0.ini" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="about_screen.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_data.h" />
     <ClInclude Include="location.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="menu_screen.h" />
     <ClInclude Include="screen_manager.h" />
   </ItemGroup>
