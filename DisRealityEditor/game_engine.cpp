@@ -1,14 +1,14 @@
-#include "game.h"
+#include "game_engine.h"
 #include "screen_manager.h"
 #include "game_data.h"
 #include <iostream>
 
-void Game::createStartScreen() 
+void GameEngine::createStartScreen() 
 {
   ScreenManager::createScreen(GameData::Screens::MENU);
 }
 
-void Game::init() 
+void GameEngine::init() 
 {
   try {
     dr::Textures::init(GameData::path::TextureListFile);
@@ -18,7 +18,6 @@ void Game::init()
     std::cout << err.what() << std::endl;
   }
   sf::Font& mainFont = dr::Fonts::get("Main");
-  //dr::Fonts::load("Main", "assets/font/brushtype.ttf");
 
   // sf::Text object for the buttons
   sf::Text buttonText;

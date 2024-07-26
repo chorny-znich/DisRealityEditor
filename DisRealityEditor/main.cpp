@@ -1,11 +1,11 @@
 // DisRealityEditor
 // Create maps for games developed by the DisRealityGF
 // version 0.1.0
-#include "game.h"
+#include "game_engine.h"
 
 int main()
 {
-  Game game;
+  GameEngine game;
   game.run();
 
   return 0;

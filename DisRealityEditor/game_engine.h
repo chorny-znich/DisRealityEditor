@@ -2,7 +2,7 @@
 
 #include <DisRealityGF.h>
 
-class Game : public dr::Engine {
+class GameEngine : public dr::Engine {
 private:
   void createStartScreen() override;
   void init() override;

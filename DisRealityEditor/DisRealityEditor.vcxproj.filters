@@ -22,15 +22,21 @@
     <Filter Include="Файлы ресурсов\Map">
       <UniqueIdentifier>{1f3f75c3-241c-4ad7-878e-3ab1a2634354}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Screen">
+      <UniqueIdentifier>{43bab98c-33e9-44da-ba80-b0e3633d679f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Engine">
+      <UniqueIdentifier>{8f339ea3-25c5-4a0c-b742-8da72045e096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Engine">
+      <UniqueIdentifier>{168d1bc0-10d2-4ca1-bf2f-1adbb01b6600}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="about_screen.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="menu_screen.cpp">
@@ -45,6 +51,9 @@
     <ClCompile Include="map.cpp">
       <Filter>Файлы заголовков\Map</Filter>
     </ClCompile>
+    <ClCompile Include="game_engine.cpp">
+      <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="config\engine_config.ini">
@@ -55,26 +64,26 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="about_screen.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="game_data.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="menu_screen.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="screen_manager.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="location.h">
       <Filter>Файлы заголовков\Map</Filter>
     </ClInclude>
     <ClInclude Include="map.h">
       <Filter>Файлы заголовков\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="about_screen.h">
+      <Filter>Файлы заголовков\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="menu_screen.h">
+      <Filter>Файлы заголовков\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="screen_manager.h">
+      <Filter>Файлы заголовков\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="game_engine.h">
+      <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="game_data.h">
+      <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
