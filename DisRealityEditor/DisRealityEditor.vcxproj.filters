@@ -48,11 +48,14 @@
     <ClCompile Include="location.cpp">
       <Filter>Исходные файлы\Map</Filter>
     </ClCompile>
-    <ClCompile Include="map.cpp">
-      <Filter>Файлы заголовков\Map</Filter>
-    </ClCompile>
     <ClCompile Include="game_engine.cpp">
       <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>Исходные файлы\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +87,9 @@
     </ClInclude>
     <ClInclude Include="game_data.h">
       <Filter>Файлы заголовков\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
