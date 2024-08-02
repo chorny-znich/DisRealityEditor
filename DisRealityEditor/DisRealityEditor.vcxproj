@@ -160,6 +160,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="menu_screen.cpp" />
+    <ClCompile Include="render.cpp" />
     <ClCompile Include="screen_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +175,7 @@
     <ClInclude Include="location.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="menu_screen.h" />
+    <ClInclude Include="render.h" />
     <ClInclude Include="screen_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
