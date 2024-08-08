@@ -162,6 +162,7 @@
     <ClCompile Include="menu_screen.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="screen_manager.cpp" />
+    <ClCompile Include="view_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config\engine_config.ini" />
@@ -177,6 +178,7 @@
     <ClInclude Include="menu_screen.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="screen_manager.h" />
+    <ClInclude Include="view_screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
