@@ -31,6 +31,12 @@
     <Filter Include="Исходные файлы\Engine">
       <UniqueIdentifier>{be4bce33-5bd5-414c-8d7d-72a016b4eacc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Map">
+      <UniqueIdentifier>{4b16751e-8bdd-45c4-a623-b0cb68333e93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Map">
+      <UniqueIdentifier>{663fec93-8371-456d-ba7f-05b84feda16d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="about_screen.h">
@@ -78,6 +84,9 @@
     <ClInclude Include="game_engine.h">
       <Filter>Файлы заголовков\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="location.h">
+      <Filter>Файлы заголовков\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -112,6 +121,9 @@
     </ClCompile>
     <ClCompile Include="game_engine.cpp">
       <Filter>Исходные файлы\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="location.cpp">
+      <Filter>Исходные файлы\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
