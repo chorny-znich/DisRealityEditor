@@ -25,6 +25,8 @@ void GameEngine::init()
   buttonText.setCharacterSize(50);
   buttonText.setFillColor(sf::Color::Black);
 
+  buttonText.setString("Editor");
+  dr::TextManager::load("editor_button", buttonText);
   buttonText.setString("About");
   dr::TextManager::load("about_button", buttonText);
   buttonText.setString("Exit");

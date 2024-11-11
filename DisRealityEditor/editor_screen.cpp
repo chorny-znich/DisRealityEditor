@@ -1,4 +1,5 @@
 #include "editor_screen.h"
+#include "imgui/imgui.h"
 
 void EditorScreen::init()
 {
@@ -18,6 +19,8 @@ void EditorScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Ve
 
 void EditorScreen::update(sf::Time dt)
 {
+  ImGui::Begin("Editor menu");
+  ImGui::End();
 }
 
 void EditorScreen::render(sf::RenderWindow& window)

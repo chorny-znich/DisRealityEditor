@@ -6,7 +6,10 @@
 void MenuScreen::init()
 {
   mBackground.setTexture(dr::Textures::get("menu_screen_background"));
-	
+
+	dr::Button buttonEditor({ 200, 75 }, dr::TextManager::get("editor_button"));
+	buttonEditor.setPosition({ 900, 700 });
+	mButtons.push_back(buttonEditor);
   dr::Button buttonAbout( { 200, 75 }, dr::TextManager::get("about_button"));
 	buttonAbout.setPosition({ 900, 800 });
   mButtons.push_back(buttonAbout);
@@ -40,9 +43,12 @@ void MenuScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Vect
 	switch (buttonIndex)
 	{
 	case 0:
-		ScreenManager::createScreen(GameData::Screens::ABOUT);
+		ScreenManager::createScreen(GameData::Screens::EDITOR);
 		break;
 	case 1:
+		ScreenManager::createScreen(GameData::Screens::ABOUT);
+		break;
+	case 2:
 		dr::GameState::destroyScreen();
 		break;
 	}
