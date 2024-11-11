@@ -20,6 +20,9 @@ void EditorScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Ve
 void EditorScreen::update(sf::Time dt)
 {
   ImGui::Begin("Editor menu");
+  ImGui::InputInt("Map index", &(mCurrentMap.getMapIndexRef()));
+  ImGui::InputInt("Map size x", &(mCurrentMap.getMapSizeRef().x));
+  ImGui::InputInt("Map size y", &(mCurrentMap.getMapSizeRef().y));
   ImGui::End();
 }
 
