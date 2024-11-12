@@ -25,8 +25,10 @@ void EditorScreen::update(sf::Time dt)
   static int floorTypeValue{ 0 };
   ImGui::Begin("Editor menu");
   bool floorTypeCheck = ImGui::Combo("Floor type", &floorTypeValue, floorType, IM_ARRAYSIZE(floorType));
+  if (ImGui::Button("Update map")) {
+    mRenderComponent.initFloorLayer(mCurrentMap.getFloorMap());
+  }
   ImGui::End();
-
 }
 
 void EditorScreen::render(sf::RenderWindow& window)

@@ -1,5 +1,6 @@
 #pragma once
 #include "location.h"
+#include "game_data.h"
 #include <SFML/Graphics.hpp>
 
 /**
@@ -8,6 +9,7 @@
 class Map
 {
 private:
+  const sf::Vector2f mTileSize{ GameData::TileSize.x, GameData::TileSize.y };
   int mMapIndex{ 0 };
   sf::Vector2i mMapSize{ 3, 3 };
   sf::VertexArray mFloorMap;

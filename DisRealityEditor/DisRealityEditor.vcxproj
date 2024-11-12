@@ -186,6 +186,7 @@
     <None Include="config\engine_config.ini" />
     <None Include="data\font_list.ini" />
     <None Include="data\texture_list.ini" />
+    <None Include="data\texture_map.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

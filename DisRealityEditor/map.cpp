@@ -1,5 +1,6 @@
 #include "map.h"
 #include "imgui/imgui.h"
+#include <DisRealityGF.h>
 
 void Map::createMap(size_t index)
 {
@@ -8,8 +9,8 @@ void Map::createMap(size_t index)
       Location loc;
       loc.setId(y * mMapSize.x + x);
       loc.setPosition({ static_cast<unsigned int>(x), static_cast<unsigned int>(y) });
-      /*loc.setFloorLayerId(section.at("floor_layer"));
-      loc.setObjectLayerId(section.at("objects_layer"));
+      loc.setFloorLayerId("dirt_1");
+      /*loc.setObjectLayerId(section.at("objects_layer"));
       loc.setBarrier(std::stoi(section.at("barrier")));*/
       mLocations.push_back(std::move(loc));
     }
@@ -17,7 +18,7 @@ void Map::createMap(size_t index)
 }
 
 void Map::createFloorMap()
-{/*
+{
   const int VERTEX_IN_QUAD = 4;
 
   int vertexCounter = 0;
@@ -46,7 +47,7 @@ void Map::createFloorMap()
 
       vertexCounter += VERTEX_IN_QUAD;
     }
-  }*/
+  }
 }
 
 const sf::VertexArray& Map::getFloorMap() const
@@ -62,6 +63,7 @@ void Map::update(sf::Time dt)
   ImGui::InputInt("Map size y", &(mMapSize.x));
   if (ImGui::Button("Create map")) {
     createMap(mMapIndex);
+    createFloorMap();
   }
   ImGui::End();
 }

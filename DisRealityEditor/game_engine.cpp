@@ -17,6 +17,7 @@ void GameEngine::init()
   catch (const std::runtime_error& err) {
     std::cout << err.what() << std::endl;
   }
+  mDatabase.init();
   sf::Font& mainFont = dr::Fonts::get("main");
 
   // sf::Text object for the buttons
