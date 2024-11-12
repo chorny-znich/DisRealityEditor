@@ -1,10 +1,12 @@
 #pragma once
 #include <screen.h>
+#include "render_component.h"
 #include "map.h"
 
 class EditorScreen : public dr::Screen
 {
 private:
+	RenderComponent mRenderComponent;
 	Map mCurrentMap;
 
 public:

@@ -31,4 +31,5 @@ void EditorScreen::update(sf::Time dt)
 
 void EditorScreen::render(sf::RenderWindow& window)
 {
+  mRenderComponent.render(window);
 }
