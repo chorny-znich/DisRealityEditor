@@ -88,7 +88,7 @@
       <Filter>Файлы заголовков\Map</Filter>
     </ClInclude>
     <ClInclude Include="map.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +137,9 @@
       <Filter>Файлы ресурсов</Filter>
     </None>
     <None Include="data\font_list.ini">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="config\engine_config.ini">
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>

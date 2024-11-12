@@ -19,12 +19,11 @@ void EditorScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Ve
 
 void EditorScreen::update(sf::Time dt)
 {
+  mCurrentMap.update(dt);
+
   static const char* floorType[]{"dirt", "dirt_tile"};
   static int floorTypeValue{ 0 };
   ImGui::Begin("Editor menu");
-  ImGui::InputInt("Map index", &(mCurrentMap.getMapIndexRef()));
-  ImGui::InputInt("Map size x", &(mCurrentMap.getMapSizeRef().x));
-  ImGui::InputInt("Map size y", &(mCurrentMap.getMapSizeRef().y));
   bool floorTypeCheck = ImGui::Combo("Floor type", &floorTypeValue, floorType, IM_ARRAYSIZE(floorType));
   ImGui::End();
 

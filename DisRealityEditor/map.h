@@ -1,4 +1,5 @@
 #pragma once
+#include "location.h"
 #include <SFML/Graphics.hpp>
 
 /**
@@ -9,11 +10,12 @@ class Map
 private:
   int mMapIndex{ 0 };
   sf::Vector2i mMapSize{ 3, 3 };
+  sf::VertexArray mFloorMap;
+  std::vector<Location> mLocations;
 
 public:
-  void setMapIndex(int index);
-  int& getMapIndexRef();
-  void setMapSize(sf::Vector2i size);
-  sf::Vector2i& getMapSizeRef();
+  void createMap(size_t index);
+  void createFloorMap();
+  const sf::VertexArray& getFloorMap() const;
+  void update(sf::Time dt);
 };
-
