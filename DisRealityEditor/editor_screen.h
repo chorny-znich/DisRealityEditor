@@ -6,6 +6,7 @@
 class EditorScreen : public dr::Screen
 {
 private:
+	sf::View mMainView{ {0, 0, GameData::GraphicResolution.x, GameData::GraphicResolution.y} };
 	RenderComponent mRenderComponent;
 	Map mCurrentMap;
 
