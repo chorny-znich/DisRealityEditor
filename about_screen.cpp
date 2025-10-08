@@ -2,8 +2,6 @@
 
 void AboutScreen::init()
 {
-	//mBackground.setTexture(dr::Textures::get("disreality_engine_background"));
-	
 	sf::Text description = dr::TextManager::get("description");
 	description.setPosition(200, 500);
 	mInfo.push_back(description);
@@ -41,7 +39,6 @@ void AboutScreen::update(sf::Time dt)
 void AboutScreen::render(sf::RenderWindow& window)
 {
 	window.setView(mMainView);
-	//window.draw(mBackground);
 	mMainMenu.render(window);
 	for (const auto& txt : mInfo) {
 		window.draw(txt);

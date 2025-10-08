@@ -7,7 +7,6 @@ class AboutScreen : public dr::Screen
 {
 private:
 	sf::View mMainView{ {0, 0, GameData::GraphicResolution.x, GameData::GraphicResolution.y} };
-	//sf::Sprite mBackground;
 	dr::Panel mMainMenu{ {350.f, 150.f} };
 	std::vector<sf::Text> mInfo;
 public:

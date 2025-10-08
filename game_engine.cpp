@@ -41,7 +41,7 @@ void GameEngine::init()
   aboutText.setCharacterSize(75);
   aboutText.setFillColor(sf::Color::Black);
 
-  aboutText.setString("This is a template for apps build on the DisReality Engine");
+  aboutText.setString("This is a map editor for games build on the DisReality Engine");
   dr::TextManager::load("description", aboutText);
 
   aboutText.setCharacterSize(25);

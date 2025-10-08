@@ -13,14 +13,6 @@ void MenuScreen::init()
 	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("play_button"));
 	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("about_button"));
 	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("exit_button"));
-	/*
-	std::shared_ptr<dr::TextButton> buttonAbout = 
-		std::make_shared<dr::TextButton>(sf::Vector2f{ 200, 75 }, sf::Text()/*dr::TextManager::get("about_button")*//*);
-	buttonAbout->setFillColor(sf::Color(255, 165, 0));
-  mMainMenu.addButton(buttonAbout);*/
-  /*dr::TextButton buttonExit({200, 75}, dr::TextManager::get("exit_button"));
-	buttonExit.setPosition( { 900, 900 } );
-  mButtons.push_back(buttonExit);*/
 }
 
 void MenuScreen::inputHandler(sf::Keyboard::Key key, bool isPressed)
@@ -34,10 +26,10 @@ void MenuScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Vect
 
 	switch (buttonIndex)
 	{
-	case 0:
+	case 1:
 		dr::ScreenManager::createScreen<AboutScreen>("ABOUT");
 		break;
-	case 1:
+	case 2:
 		dr::GameState::destroyScreen();
 		break;
 	}
