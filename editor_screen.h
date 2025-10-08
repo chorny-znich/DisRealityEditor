@@ -1,11 +1,23 @@
 #pragma once
 #include <screen.h>
 #include "game_data.h"
+#include <disreality_engine.h>
 
 class EditorScreen : public dr::Screen
 {
 private:
 	sf::View mMainView{ {0, 0, GameData::GraphicResolution.x, GameData::GraphicResolution.y} };
+
+	enum class State {
+		CREATE_MAP,
+		VIEW,
+		EDIT
+	};
+	State mState{ State::CREATE_MAP };
+
+	dr::Map mCurrentMap;
+	dr::RenderComponent mRenderComponent;
+	//dr::InputComponent mInputComponent{ mMainView };
 public:
 	void init();
 	void inputHandler(sf::Keyboard::Key key, bool isPressed);

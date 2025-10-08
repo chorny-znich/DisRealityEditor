@@ -12,4 +12,5 @@ namespace GameData
     const std::string FontListFile{R"(data/font_list.ini)"};
   }
   const sf::Vector2f GraphicResolution{ 1920.f, 1080.f };
+  const sf::Vector2f TileSize{ 128.f, 128.f };
 }
