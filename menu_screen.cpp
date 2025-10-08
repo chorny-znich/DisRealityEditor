@@ -3,6 +3,7 @@
 #include <iostream>
 #include <format>
 #include "about_screen.h"
+#include "editor_screen.h"
 
 void MenuScreen::init()
 {
@@ -26,6 +27,9 @@ void MenuScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Vect
 
 	switch (buttonIndex)
 	{
+	case 0:
+		dr::ScreenManager::createScreen<EditorScreen>("EDITOR");
+		break;
 	case 1:
 		dr::ScreenManager::createScreen<AboutScreen>("ABOUT");
 		break;
