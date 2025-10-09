@@ -17,7 +17,7 @@ private:
 
 	dr::Map mCurrentMap;
 	dr::RenderComponent mRenderComponent;
-	//dr::InputComponent mInputComponent{ mMainView };
+	dr::InputComponent mInputComponent{ mMainView };
 public:
 	void init();
 	void inputHandler(sf::Keyboard::Key key, bool isPressed);

@@ -21,14 +21,16 @@ void AboutScreen::inputHandler(sf::Keyboard::Key key, bool isPressed)
 
 void AboutScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Vector2i position, sf::RenderWindow* window)
 {
-	sf::Vector2f worldCoords = window->mapPixelToCoords(position, mMainView);
-	int buttonIndex = mMainMenu.handleInput(worldCoords);
+	if (button == sf::Mouse::Left && isPressed) {
+		sf::Vector2f worldCoords = window->mapPixelToCoords(position, mMainView);
+		int buttonIndex = mMainMenu.handleInput(worldCoords);
 
-	switch (buttonIndex)
-	{
-	case 0:
-		dr::GameState::destroyScreen();
-		break;
+		switch (buttonIndex)
+		{
+		case 0:
+			dr::GameState::destroyScreen();
+			break;
+		}
 	}
 }
 
