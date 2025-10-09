@@ -40,4 +40,11 @@ void EditorScreen::render(sf::RenderWindow& window)
 {
 	window.setView(mMainView);
 	
+  switch (mState) {
+  case State::EDIT:
+  case State::VIEW:
+    mRenderComponent.render(window);
+    //mInputComponent.render(window);
+    break;
+  }
 }
