@@ -19,6 +19,7 @@ private:
 	dr::RenderComponent mRenderComponent;
 	dr::InputComponent mInputComponent{ mMainView };
 public:
+	EditorScreen();
 	void init();
 	void inputHandler(sf::Keyboard::Key key, bool isPressed);
 	void inputHandler(sf::Mouse::Button button, bool isPressed, sf::Vector2i position, sf::RenderWindow* window);
