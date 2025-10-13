@@ -1,8 +1,7 @@
 #include "editor_screen.h"
 #include <format>
 
-EditorScreen::EditorScreen() :
-  mRenderComponent(mCurrentMap.getLevelObjects())
+EditorScreen::EditorScreen()
 {
 }
 
@@ -123,6 +122,7 @@ void EditorScreen::update(sf::Time dt)
       // Add or delete the level object to/from the render component
       if (levelObjectType[levelObjectTypeValue] != "none") {
         mCurrentMap.addLevelObject(std::move(mCurrentMap.createLevelObject(loc.getId())));
+        mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
       }
       else {
         if (currentLevelLayer != "none") {
