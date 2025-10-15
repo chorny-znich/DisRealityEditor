@@ -118,5 +118,8 @@
     <None Include="config\engine_config.ini">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="data\texture_map.ini">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
 </Project>

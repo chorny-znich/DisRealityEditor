@@ -119,7 +119,7 @@ void EditorScreen::update(sf::Time dt)
       loc.setLevelLayerId(levelObjectType[levelObjectTypeValue]);
       loc.setObjectLayerId(staticObjectType[staticObjectTypeValue]);
 
-      // Add or delete the level object to/from the render component
+      // Add or delete the level object to/from the current map
       if (levelObjectType[levelObjectTypeValue] != "none") {
         mCurrentMap.addLevelObject(std::move(mCurrentMap.createLevelObject(loc.getId())));
         mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
@@ -127,19 +127,22 @@ void EditorScreen::update(sf::Time dt)
       else {
         if (currentLevelLayer != "none") {
           mCurrentMap.deleteLevelObject(loc.getId());
+          mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
         }
       }
-      // Add or delete the static object to/from the render component
-     /* if (staticObjectType[staticObjectTypeValue] != "none") {
-        mRenderComponent.addStaticObject(std::move(mCurrentMap.createStaticObject(loc.getId())));
-        loc.setPassability(true);
+      // Add or delete the static object to/from the current map
+      if (staticObjectType[staticObjectTypeValue] != "none") {
+        mCurrentMap.addStaticObject(std::move(mCurrentMap.createStaticObject(loc.getId())));
+        mRenderComponent.updateStaticLayer(mCurrentMap.getStaticObjects());
+        loc.setPassability(false);
       }
       else {
-        loc.setPassability(false);
+        loc.setPassability(true);
         if (currentObjectLayer != "none") {
-          mRenderComponent.deleteStaticObject(loc.getId());
+          mCurrentMap.deleteStaticObject(loc.getId());
+          mRenderComponent.updateStaticLayer(mCurrentMap.getStaticObjects());
         }
-      }*/
+      }
       if (!isEntry) {
         loc.setEntry(false);
       }

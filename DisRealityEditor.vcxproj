@@ -164,6 +164,7 @@
   <ItemGroup>
     <None Include="config\engine_config.ini" />
     <None Include="data\texture_list.ini" />
+    <None Include="data\texture_map.ini" />
     <None Include="docs\docs.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
