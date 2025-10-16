@@ -51,12 +51,7 @@ void EditorScreen::update(sf::Time dt)
     
     dr::Location& loc = mCurrentMap.getLocation(mInputComponent.getTilePosition().y *
       mCurrentMap.getMapSize().x + mInputComponent.getTilePosition().x);
-    /*static const char* floorType[]{"dirt", "dirt_tile", "stone_tile"};
-    static int floorTypeValue{ 0 };
-    static const char* levelType[]{ "none", "stone_wall_corner_nw", "stone_wall_corner_ne", "stone_wall_corner_sw",
-      "stone_wall_corner_se", "stone_wall_hn", "stone_wall_hs", "stone_wall_vw", "stone_wall_ve" };
-    static int levelTypeValue{ 0 };
-    */ 
+   
     ImGui::Begin("Editor menu");
     if (ImGui::Button("Save map")) {
       mCurrentMap.saveMap("map_" + std::to_string(mCurrentMap.getMapIndex()));
@@ -104,14 +99,14 @@ void EditorScreen::update(sf::Time dt)
     bool levelObjectTypeCheck = ImGui::Combo("Level object type", &levelObjectTypeValue, levelObjectType, IM_ARRAYSIZE(levelObjectType));
     ImGui::Text(std::format("Static object type: {}", loc.getObjectLayerId()).c_str());
     bool staticObjectTypeCheck = ImGui::Combo("Static object type", &staticObjectTypeValue, staticObjectType, IM_ARRAYSIZE(staticObjectType));
-    /*if (ImGui::Checkbox("Entry: ", &isEntry)) {
+    if (ImGui::Checkbox("Entry: ", &isEntry)) {
       loc.setEntry(true);
       dr::MapEntry newEntry;
-      newEntry.setId(std::format("[entry_{}_{}]\n", mCurrentMap.getNumberOfEntries(), mCurrentMap.getMapIndex()));
+      newEntry.setId(std::format("entry_{}_{}\n", mCurrentMap.getNumberOfEntries(), mCurrentMap.getMapIndex()));
       newEntry.setMapId(mCurrentMap.getMapIndex());
       newEntry.setPosition(loc.getPosition());
       mCurrentMap.createEntry(loc.getId(), std::move(newEntry));
-    }*/
+    }
     if (ImGui::Button("Done")) {
       mCurrentMap.updateFloorMap(loc.getId(), floorType[floorTypeValue]);
       mRenderComponent.updateFloorLayer(mCurrentMap.getFloorMap());
@@ -151,6 +146,23 @@ void EditorScreen::update(sf::Time dt)
       mState = State::VIEW;
     }
     ImGui::End();
+    // Setup map's entry
+    if (loc.isEntry()) {
+      static int linkedEntryMapIndex = 0;
+      static int linkedEntryIndex = 0;
+      dr::MapEntry& entry = mCurrentMap.getEntry(loc.getId());
+      ImGui::Begin("Entry");
+      ImGui::Text(std::format("ID: {}", entry.getId()).c_str());
+      ImGui::Text(std::format("Map index: {}", entry.getMapId()).c_str());
+      ImGui::Text(std::format("x: {}", entry.getPosition().x).c_str());
+      ImGui::Text(std::format("y: {}", entry.getPosition().y).c_str());
+      ImGui::InputInt("Linked entry map index", &(linkedEntryMapIndex));
+      ImGui::InputInt("Linked entry index", &(linkedEntryIndex));
+      if (ImGui::Button("Done")) {
+        entry.setLinkedEntryId(std::format("entry_{}_{}", linkedEntryIndex, linkedEntryMapIndex).c_str());
+      }
+      ImGui::End();
+    }
   }
 }
 

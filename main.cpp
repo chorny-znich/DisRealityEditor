@@ -1,5 +1,5 @@
-// DisRealityEngine application
-// The template for the minimal DisReality Engine application
+// DisReality Editor
+// The map's editor for games on the DisReality Engine
 // version 0.1.0
 
 #include "game_engine.h"
