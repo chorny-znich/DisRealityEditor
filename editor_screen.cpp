@@ -12,6 +12,20 @@ void EditorScreen::init()
 
 void EditorScreen::inputHandler(sf::Keyboard::Key key, bool isPressed)
 {
+  if (mState == State::VIEW) {
+    if (key == sf::Keyboard::A) {
+      mMainView.move({ 10, 0 });
+    }
+    else if (key == sf::Keyboard::D) {
+      mMainView.move({ -10, 0 });
+    }
+    else if (key == sf::Keyboard::W) {
+      mMainView.move({ 0, 10 });
+    }
+    else if (key == sf::Keyboard::S) {
+      mMainView.move({ 0, -10 });
+    }
+  }
 }
 
 void EditorScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Vector2i position, sf::RenderWindow* window)
