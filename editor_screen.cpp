@@ -125,6 +125,7 @@ void EditorScreen::update(sf::Time dt)
     ImGui::Text(std::format("floor type: {}", loc.getFloorLayerId()).c_str());
     ImGui::Text(std::format("Level object type: {}", loc.getLevelLayerId()).c_str());
     ImGui::Text(std::format("Static object type: {}", loc.getObjectLayerId()).c_str());
+    ImGui::Text(std::format("Passability: {}", loc.isPassable()).c_str());
     ImGui::Text(std::format("Entry: {}", loc.isEntry()).c_str());
     ImGui::End();
   }
@@ -161,6 +162,7 @@ void EditorScreen::update(sf::Time dt)
     bool staticObjectTypeCheck = ImGui::Combo("Static object type", &staticObjectTypeValue, staticObjectType, IM_ARRAYSIZE(staticObjectType));
     if (ImGui::Checkbox("Entry: ", &isEntry)) {
       loc.setEntry(true);
+      loc.setPassability(1);
       dr::MapEntry newEntry;
       newEntry.setId(std::format("entry_{}_{}\n", mCurrentMap.getNumberOfEntries(), mCurrentMap.getMapIndex()));
       newEntry.setMapId(mCurrentMap.getMapIndex());
@@ -178,8 +180,10 @@ void EditorScreen::update(sf::Time dt)
       if (levelObjectType[levelObjectTypeValue] != "none") {
         mCurrentMap.addLevelObject(std::move(mCurrentMap.createLevelObject(loc.getId())));
         mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
+        loc.setPassability(false);
       }
       else {
+        loc.setPassability(true);
         if (currentLevelLayer != "none") {
           mCurrentMap.deleteLevelObject(loc.getId());
           mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
