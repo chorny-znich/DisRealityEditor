@@ -1,6 +1,26 @@
 #include "editor_screen.h"
 #include <format>
 
+/**
+ * @brief Load the map from the ini file 
+ * @param filename - name of the ini file with maps's data 
+ */
+void EditorScreen::loadMap(int mapIndex)
+{
+  mCurrentMap.loadFromFile(std::format("data/maps/map_{}.ini", mapIndex));
+  mCurrentMap.createFloorMap();
+  mCurrentMap.createLevelObjects();
+  mCurrentMap.createStaticObjects();
+
+  mRenderComponent.updateFloorLayer(mCurrentMap.getFloorMap());
+  mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
+  mRenderComponent.updateStaticLayer(mCurrentMap.getStaticObjects());
+
+  mInputComponent.setMapSize(mCurrentMap.getMapSize());
+
+  mState = State::VIEW;
+}
+
 EditorScreen::EditorScreen()
 {
 }
@@ -42,7 +62,21 @@ void EditorScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Ve
 
 void EditorScreen::update(sf::Time dt)
 {
-  if (mState == State::CREATE_MAP) {
+  if (mState == State::MENU) {
+    ImGui::Begin("Menu");
+    if (ImGui::Button("New", {200, 75})) {
+      mState = State::CREATE_MAP;
+      }
+    if (ImGui::Button("Load",{ 200, 75 })) {
+      mState = State::LOAD_MAP;
+    }
+    if (ImGui::Button("Exit", { 200, 75 })) {
+      dr::GameState::destroyScreen();
+    }
+    ImGui::End();
+  }
+
+  else if (mState == State::CREATE_MAP) {
     static const char* floorType[]{ "dirt", "dirt_tile", "stone_tile" };
     static int floorTypeValue{ 0 };
     static int mapIndex;
@@ -60,6 +94,17 @@ void EditorScreen::update(sf::Time dt)
     }
     ImGui::End();
   }
+
+  else if (mState == State::LOAD_MAP) {
+    static int mapIndex{ 0 };
+    ImGui::Begin("Filename");
+    ImGui::InputInt("Enter map's number", &mapIndex);
+    if (ImGui::Button("Load")) {
+      loadMap(mapIndex);
+    }
+    ImGui::End();
+  }
+
   else if (mState == State::VIEW) {
     mInputComponent.update(dt);
     
@@ -83,6 +128,7 @@ void EditorScreen::update(sf::Time dt)
     ImGui::Text(std::format("Entry: {}", loc.isEntry()).c_str());
     ImGui::End();
   }
+
   else if (mState == State::EDIT) {
     // Get the information of the edited location and form the data for the menus
     mInputComponent.update(dt);

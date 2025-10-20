@@ -9,15 +9,19 @@ private:
 	sf::View mMainView{ {0, 0, GameData::GraphicResolution.x, GameData::GraphicResolution.y} };
 
 	enum class State {
+		MENU,
 		CREATE_MAP,
+		LOAD_MAP,
 		VIEW,
 		EDIT
 	};
-	State mState{ State::CREATE_MAP };
+	State mState{ State::MENU };
 
 	dr::Map mCurrentMap;
 	dr::RenderComponent mRenderComponent;
 	dr::InputComponent mInputComponent{ mMainView };
+
+	void loadMap(int mapIndex);
 public:
 	EditorScreen();
 	void init();
