@@ -21,6 +21,15 @@ private:
 	dr::RenderComponent mRenderComponent;
 	dr::InputComponent mInputComponent{ mMainView };
 
+	bool mFloorTypeSetup{ false };
+	static int floorTypeValue;
+
+	bool mLevelTypeSetup{ false };
+	static int levelObjectTypeValue;
+
+	bool mStaticObjectSetup{ false };
+	static int staticObjectTypeValue;
+
 	void loadMap(int mapIndex);
 public:
 	EditorScreen();

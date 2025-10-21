@@ -1,6 +1,10 @@
 #include "editor_screen.h"
 #include <format>
 
+int EditorScreen::floorTypeValue{ 0 };
+int EditorScreen::levelObjectTypeValue{ 0 };
+int EditorScreen::staticObjectTypeValue{ 0 };
+
 /**
  * @brief Load the map from the ini file 
  * @param filename - name of the ini file with maps's data 
@@ -62,6 +66,10 @@ void EditorScreen::inputHandler(sf::Mouse::Button button, bool isPressed, sf::Ve
 
 void EditorScreen::update(sf::Time dt)
 {
+  /*ImGui::Begin("!");
+  ImGui::Text(std::format("{}", mLevelTypeSetup).c_str());
+  ImGui::End();*/
+
   if (mState == State::MENU) {
     ImGui::Begin("Menu");
     if (ImGui::Button("New", {200, 75})) {
@@ -135,18 +143,55 @@ void EditorScreen::update(sf::Time dt)
     mInputComponent.update(dt);
     dr::Location& loc = mCurrentMap.getLocation(mInputComponent.getTilePosition().y *
       mCurrentMap.getMapSize().x + mInputComponent.getTilePosition().x);
+    const std::string currentFloorLayer = loc.getFloorLayerId();
     const std::string currentLevelLayer = loc.getLevelLayerId();
     const std::string currentObjectLayer = loc.getObjectLayerId();
+
     static const char* floorType[]{ "dirt", "dirt_tile", "stone_tile", "stone_missing_tiles_e",
-    "stone_uneven_e", "stone_uneven_n", "stone_uneven_w", "stone_uneven_s" };
-    static int floorTypeValue{ 0 };
+    "stone_uneven_e", "stone_uneven_n", "stone_uneven_w", "stone_uneven_s",
+    "stone_tile_e", "stone_tile_n", "stone_tile_s", "stone_tile_w" };
+    
+    // Set the floor layer id to it's current value
+    if (!mFloorTypeSetup) {
+      for (size_t i = 0; i < 12; i++) {
+        if (currentFloorLayer == floorType[i]) {
+          floorTypeValue = i;
+          break;
+        }
+      }
+      mFloorTypeSetup = true;
+    }
+    
     static const char* levelObjectType[]{ "none", "stone_wall_corner_nw", "stone_wall_corner_ne", "stone_wall_corner_sw",
       "stone_wall_corner_se", "stone_wall_hn", "stone_wall_hs", "stone_wall_vw", "stone_wall_ve",
     "stone_wall_broken_w", "stone_wall_broken_e", "stone_wall_broken_n", "stone_wall_broken_s",
-    "stone_wall_window_bars_e", "stone_wall_window_bars_w", "stone_wall_window_bars_n", "stone_wall_window_bars_s" };
-    static int levelObjectTypeValue{ 0 };
-    static const char* staticObjectType[]{ "none", "ladder_down", "barrels_stacked_h", "barrels_stacked_v" };
-    static int staticObjectTypeValue{ 0 };
+    "stone_wall_window_bars_e", "stone_wall_window_bars_w", "stone_wall_window_bars_n", "stone_wall_window_bars_s",
+    "stone_wall_door_open_e", "stone_wall_door_open_w", "stone_wall_door_open_n", "stone_wall_door_open_s" };
+    // Set the level layer id to it's current value
+    if (!mLevelTypeSetup) {
+      for (size_t i = 0; i < 21; i++) {
+        if (currentLevelLayer == levelObjectType[i]) {
+          levelObjectTypeValue = i;
+          break;
+        }
+      }
+      mLevelTypeSetup = true;
+    }
+
+    static const char* staticObjectType[]{ "none", "ladder_down", "barrels_stacked_h", "barrels_stacked_v",
+      "stone_column_n", "stone_column_wood_n", "table_chairs_broken_n", "table_short_chairs_w"};
+    // Set the static object layer id to it's current value
+    if (!mStaticObjectSetup) {
+      for (size_t i = 0; i < 8; i++) {
+        if (currentObjectLayer == staticObjectType[i]) {
+          staticObjectTypeValue = i;
+          break;
+        }
+      }
+      mStaticObjectSetup = true;
+    }
+
+
     static bool isEntry = loc.isEntry();
     
     // Menus in the edit mode
@@ -180,10 +225,8 @@ void EditorScreen::update(sf::Time dt)
       if (levelObjectType[levelObjectTypeValue] != "none") {
         mCurrentMap.addLevelObject(std::move(mCurrentMap.createLevelObject(loc.getId())));
         mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
-        loc.setPassability(false);
       }
       else {
-        loc.setPassability(true);
         if (currentLevelLayer != "none") {
           mCurrentMap.deleteLevelObject(loc.getId());
           mRenderComponent.updateLevelLayer(mCurrentMap.getLevelObjects());
@@ -193,7 +236,6 @@ void EditorScreen::update(sf::Time dt)
       if (staticObjectType[staticObjectTypeValue] != "none") {
         mCurrentMap.addStaticObject(std::move(mCurrentMap.createStaticObject(loc.getId())));
         mRenderComponent.updateStaticLayer(mCurrentMap.getStaticObjects());
-        loc.setPassability(false);
       }
       else {
         loc.setPassability(true);
@@ -206,7 +248,19 @@ void EditorScreen::update(sf::Time dt)
         loc.setEntry(false);
       }
       isEntry = false;
+
+      // Set passability of the edited location
+      if (levelObjectType[levelObjectTypeValue] != "none" || staticObjectType[staticObjectTypeValue] != "none") {
+        loc.setPassability(false);
+      }
+      if (loc.isEntry()) {
+        loc.setPassability(true);
+      }
+
       mInputComponent.finishEditMode();
+      mFloorTypeSetup = false;
+      mLevelTypeSetup = false;
+      mStaticObjectSetup = false;
       mState = State::VIEW;
     }
     ImGui::End();
