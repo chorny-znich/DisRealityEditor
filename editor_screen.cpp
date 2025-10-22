@@ -12,6 +12,7 @@ int EditorScreen::staticObjectTypeValue{ 0 };
 void EditorScreen::loadMap(int mapIndex)
 {
   mCurrentMap.loadFromFile(std::format("data/maps/map_{}.ini", mapIndex));
+  mCurrentMap.loadEntries(std::format("data/maps/entry_{}.ini", mapIndex));
   mCurrentMap.createFloorMap();
   mCurrentMap.createLevelObjects();
   mCurrentMap.createStaticObjects();
