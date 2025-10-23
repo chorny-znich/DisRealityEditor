@@ -156,7 +156,7 @@ void EditorScreen::update(sf::Time dt)
     if (!mFloorTypeSetup) {
       for (size_t i = 0; i < 12; i++) {
         if (currentFloorLayer == floorType[i]) {
-          floorTypeValue = i;
+          floorTypeValue = static_cast<int>(i);
           break;
         }
       }
@@ -172,7 +172,7 @@ void EditorScreen::update(sf::Time dt)
     if (!mLevelTypeSetup) {
       for (size_t i = 0; i < 21; i++) {
         if (currentLevelLayer == levelObjectType[i]) {
-          levelObjectTypeValue = i;
+          levelObjectTypeValue = static_cast<int>(i);
           break;
         }
       }
@@ -185,7 +185,7 @@ void EditorScreen::update(sf::Time dt)
     if (!mStaticObjectSetup) {
       for (size_t i = 0; i < 8; i++) {
         if (currentObjectLayer == staticObjectType[i]) {
-          staticObjectTypeValue = i;
+          staticObjectTypeValue = static_cast<int>(i);
           break;
         }
       }
