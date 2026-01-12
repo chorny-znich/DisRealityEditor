@@ -11,9 +11,9 @@ void MenuScreen::init()
 	mMainMenu.setPosition({ 750.f, 400.f });
 	mMainMenu.setColor(sf::Color(255, 255, 255, 0));
 	
-	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("play_button"));
-	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("about_button"));
-	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("exit_button"));
+	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("main_button"), "PLAY");
+	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("main_button"), "ABOUT");
+	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("main_button"), "EXIT");
 }
 
 void MenuScreen::inputHandler(sf::Keyboard::Key key, bool isPressed)

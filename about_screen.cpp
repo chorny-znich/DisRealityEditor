@@ -2,17 +2,17 @@
 
 void AboutScreen::init()
 {
-	sf::Text description = dr::TextManager::get("description");
+	sf::Text description = dr::TextManager::get("main_description");
 	description.setPosition(200, 500);
 	mInfo.push_back(description);
 
-	sf::Text version = dr::TextManager::get("version");
+	sf::Text version = dr::TextManager::get("main_version");
 	version.setPosition(900, 600);
 	mInfo.push_back(version);
 	
 	mMainMenu.setPosition({ 850.f, 900.f });
 	mMainMenu.setColor(sf::Color(255, 255, 255, 0));
-	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("back_button"));
+	mMainMenu.addTextButton({ 300.f, 120.f }, dr::TextManager::get("main_button"), "BACK");
 }
 
 void AboutScreen::inputHandler(sf::Keyboard::Key key, bool isPressed)
