@@ -150,7 +150,8 @@ void EditorScreen::update(sf::Time dt)
 
     static const char* floorType[]{ "dirt", "dirt_tile", "stone_tile", "stone_missing_tiles_e",
     "stone_uneven_e", "stone_uneven_n", "stone_uneven_w", "stone_uneven_s",
-    "stone_tile_e", "stone_tile_n", "stone_tile_s", "stone_tile_w" };
+    "stone_tile_e", "stone_tile_n", "stone_tile_s", "stone_tile_w",
+    "planks_e", "planks_n", "planks_s", "planks_w" };
     
     // Set the floor layer id to it's current value
     if (!mFloorTypeSetup) {
