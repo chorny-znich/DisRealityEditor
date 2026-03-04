@@ -155,7 +155,7 @@ void EditorScreen::update(sf::Time dt)
     
     // Set the floor layer id to it's current value
     if (!mFloorTypeSetup) {
-      for (size_t i = 0; i < 12; i++) {
+      for (size_t i = 0; i < 16; i++) {
         if (currentFloorLayer == floorType[i]) {
           floorTypeValue = static_cast<int>(i);
           break;
@@ -168,10 +168,11 @@ void EditorScreen::update(sf::Time dt)
       "stone_wall_corner_se", "stone_wall_hn", "stone_wall_hs", "stone_wall_vw", "stone_wall_ve",
     "stone_wall_broken_w", "stone_wall_broken_e", "stone_wall_broken_n", "stone_wall_broken_s",
     "stone_wall_window_bars_e", "stone_wall_window_bars_w", "stone_wall_window_bars_n", "stone_wall_window_bars_s",
-    "stone_wall_door_open_e", "stone_wall_door_open_w", "stone_wall_door_open_n", "stone_wall_door_open_s" };
+    "stone_wall_door_open_e", "stone_wall_door_open_w", "stone_wall_door_open_n", "stone_wall_door_open_s",
+    "wall_books_w", "wall_books_e", "wall_books_n", "wall_books_s" };
     // Set the level layer id to it's current value
     if (!mLevelTypeSetup) {
-      for (size_t i = 0; i < 21; i++) {
+      for (size_t i = 0; i < 25; i++) {
         if (currentLevelLayer == levelObjectType[i]) {
           levelObjectTypeValue = static_cast<int>(i);
           break;
@@ -181,10 +182,13 @@ void EditorScreen::update(sf::Time dt)
     }
 
     static const char* staticObjectType[]{ "none", "ladder_down", "barrels_stacked_h", "barrels_stacked_v",
-      "stone_column_n", "stone_column_wood_n", "table_chairs_broken_n", "table_short_chairs_w"};
+      "stone_column_n", "stone_column_wood_n", "table_chairs_broken_n", "table_chairs_broken_e",
+      "table_short_chairs_w",
+      "table_short_chairs_n", "candle_stand_e", "candle_stand_e", "candle_stand_c",
+      "sacks_crate_e", "sacks_crate_w", "sacks_crate_n", "sacks_crate_s" };
     // Set the static object layer id to it's current value
     if (!mStaticObjectSetup) {
-      for (size_t i = 0; i < 8; i++) {
+      for (size_t i = 0; i < 17; i++) {
         if (currentObjectLayer == staticObjectType[i]) {
           staticObjectTypeValue = static_cast<int>(i);
           break;
