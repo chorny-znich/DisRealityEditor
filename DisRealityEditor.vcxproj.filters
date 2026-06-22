@@ -25,6 +25,12 @@
     <Filter Include="Исходные файлы\Screen">
       <UniqueIdentifier>{795a3fe4-8e8f-4a1e-81d0-6ba28c8edd12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\ImGui">
+      <UniqueIdentifier>{1bb0ac0c-2adc-4278-a901-31ca238bc85f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\ImGui">
+      <UniqueIdentifier>{533ffd45-027a-43b8-bd5e-6d766ad9500d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -40,22 +46,25 @@
       <Filter>Исходные файлы\Screen</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_tables.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_widgets.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui-SFML.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="editor_screen.cpp">
+      <Filter>Исходные файлы\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,24 +81,27 @@
       <Filter>Файлы заголовков\Screen</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui-SFML.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imstb_rectpack.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imstb_textedit.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>Файлы заголовков\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="editor_screen.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
