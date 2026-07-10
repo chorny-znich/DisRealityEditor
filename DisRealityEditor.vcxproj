@@ -104,7 +104,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>D:\vargar\repository\engine\DisRealityEditor\ImGui;D:\vargar\repository\lib\SFML3\include;D:\vargar\repository\lib\DisRealityEngine\include;D:\vargar\repository\engine\DisRealityEditor\ImGui;D:\vargar\repository\lib\SFML3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4834;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

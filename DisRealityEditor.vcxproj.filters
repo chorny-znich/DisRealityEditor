@@ -102,7 +102,7 @@
       <Filter>Файлы заголовков\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="editor_screen.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
