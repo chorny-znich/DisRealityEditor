@@ -1,4 +1,5 @@
 #pragma once
+#include "game_data.h"
 #include <disreality_engine.h>
 
 /**

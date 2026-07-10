@@ -164,6 +164,7 @@
     <None Include="data\strings.ini" />
     <None Include="data\texture_list.ini" />
     <None Include="data\text_style.ini" />
+    <None Include="data\tile_map.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,28 +7,19 @@
 /**
  * @brief For handling Events in handleInput method
  */
-struct AboutScreen::ScreenInputVisitor
+struct EditorScreen::ScreenInputVisitor
 {
-	AboutScreen& screen;
+	EditorScreen& screen;
 	sf::RenderWindow& window;
 
 	void clearUI()
 	{
 		window.setMouseCursor(dr::CursorManager::get("arrow"));
-		screen.mBackButton.clearOverlap();
 	}
 
 	void operator()(const sf::Event::MouseMoved& mouseMoved)
 	{
 		sf::Vector2f mouseViewCoords = window.mapPixelToCoords(mouseMoved.position);
-		if (screen.mBackButton.isOverlap(mouseViewCoords))
-		{
-			window.setMouseCursor(dr::CursorManager::get("hand"));
-		}
-		else
-		{
-			window.setMouseCursor(dr::CursorManager::get("arrow"));
-		}
 	}
 
 	/**
@@ -40,12 +31,6 @@ struct AboutScreen::ScreenInputVisitor
 		if (mouseButton.button == sf::Mouse::Button::Left)
 		{
 			sf::Vector2f mouseViewCoords = window.mapPixelToCoords(mouseButton.position);
-			if (screen.mBackButton.isClicked(mouseViewCoords))
-			{
-				clearUI();
-				dr::ScreenManager::destroyScreen();
-				window.setMouseCursor(dr::CursorManager::get("arrow"));
-			}
 		}
 	}
 
@@ -55,12 +40,12 @@ struct AboutScreen::ScreenInputVisitor
 /**
  * @brief Initialize screen resources
  */
-void AboutScreen::init()
+void EditorScreen::init()
 {
-	ImGui::SFML::Init()
+	ImGui::SFML::Init(dr::ImguiHelper::getWindow());
 }
 
-void AboutScreen::handleInput(const sf::Event& event, sf::RenderWindow& window)
+void EditorScreen::handleInput(const sf::Event& event, sf::RenderWindow& window)
 {
 	event.visit(ScreenInputVisitor{ *this, window });
 }
@@ -69,16 +54,16 @@ void AboutScreen::handleInput(const sf::Event& event, sf::RenderWindow& window)
  * @brief 
  * @param dt 
  */
-void AboutScreen::update(float dt)
+void EditorScreen::update(float dt)
 {
-	ImGui::SFML::Update(dt);
+	ImGui::SFML::Update(dr::ImguiHelper::getWindow(), dr::ImguiHelper::getTime());
 }
 
 /**
  * @brief 
  * @param window 
  */
-void AboutScreen::render(sf::RenderWindow& window)
+void EditorScreen::render(sf::RenderWindow& window)
 {
 	window.setView(mMainView);
 	ImGui::SFML::Render(window);
