@@ -52,6 +52,10 @@ struct EditorScreen::ScreenInputVisitor
 EditorScreen::EditorScreen() :
 	mStringEditor(std::make_unique<FlatIniEditor>())
 {
+	mStringEditor->data["back_button"] = "BACK";
+	mStringEditor->data["editor_button"] = "EDITOR";
+	mStringEditor->data["about_button"] = "ABOUT";
+	mStringEditor->data["exit_button"] = "бшунд";
 }
 
 EditorScreen::~EditorScreen() = default;
@@ -62,6 +66,11 @@ EditorScreen::~EditorScreen() = default;
 void EditorScreen::init()
 {
 	ImGui::SFML::Init(dr::ImguiHelper::getWindow());
+
+	ImGuiIO& io = ImGui::GetIO();
+	io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/font/arial.ttf", 16.f, nullptr,
+		io.Fonts->GetGlyphRangesCyrillic());
+	ImGui::SFML::UpdateFontTexture();
 }
 
 void EditorScreen::handleInput(const sf::Event& event, sf::RenderWindow& window)
@@ -79,7 +88,6 @@ void EditorScreen::update(float dt)
 	ImGui::SFML::Update(dr::ImguiHelper::getWindow(), dr::ImguiHelper::getTime());
 
 	// Draw ImGui menus
-
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
@@ -96,7 +104,6 @@ void EditorScreen::update(float dt)
 			if (ImGui::MenuItem("Strings"))
 			{
 				mShowStringEditor = true;
-				mStringEditor->data.clear();
 
 			}
 			ImGui::EndMenu();
@@ -111,7 +118,11 @@ void EditorScreen::update(float dt)
 	}
 	if (mShowStringEditor)
 	{
-		drawFlatIniEditor("String Editor", *mStringEditor);
+		if (ImGui::Begin("String editor (strings.ini)", &mShowStringEditor))
+		{
+			drawFlatIniEditor("String Editor", *mStringEditor);
+		}
+		ImGui::End();
 	}
 }
 
@@ -125,18 +136,56 @@ void EditorScreen::render(sf::RenderWindow& window)
 	ImGui::SFML::Render(window);
 }
 
+/**
+ * @brief Display an editor for key-value pairs (string-string)
+ * @param title name of the editor displayed at the top
+ * @param editor a smart pointer to the specific editor as Strings or a list of textures
+ */
 void EditorScreen::drawFlatIniEditor(const std::string& title, FlatIniEditor& editor)
 {
-	// Editor title
-	ImGui::TextColored(ImVec4(0.2f, 0.8f, 0.2f, 1.0f), title.c_str());
-	ImGui::Spacing();
-	// Read only table
-	if (ImGui::BeginTable("flatEditorTable", 2, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg |
-		ImGuiTableFlags_ScrollY, ImVec2(0.f, 300.f)))
+	if (ImGui::BeginTable(title.c_str(), 2, ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable |
+		ImGuiTableFlags_RowBg))
 	{
+		// Display header of the table
 		ImGui::TableSetupColumn("ID");
 		ImGui::TableSetupColumn("Value");
 		ImGui::TableHeadersRow();
+		// Display rows
+		for (const auto& [key, value] : editor.data)
+		{
+			ImGui::TableNextRow();
+			ImGui::TableSetColumnIndex(0);
+			bool isSelected = (key == editor.selectedKey);
+			if (ImGui::Selectable(key.c_str(), isSelected, ImGuiSelectableFlags_SpanAllColumns))
+			{
+				editor.selectedKey = key;
+				editor.isEditing = true;
+				strcpy_s(editor.bufferKey, sizeof(editor.bufferKey), key.c_str());
+				strcpy_s(editor.bufferValue, sizeof(editor.bufferValue), value.c_str());
+			}
+			ImGui::TableSetColumnIndex(1);
+			ImGui::Text(value.c_str());
+		}
 		ImGui::EndTable();
+	}
+	// Edit selected record
+	if (editor.isEditing)
+	{
+		ImGui::Separator();
+		ImGui::Text("Edit selected record:");
+		ImGui::InputText("Key ID", editor.bufferKey, sizeof(editor.bufferKey));
+		ImGui::InputText("Value data", editor.bufferValue, sizeof(editor.bufferValue));
+	
+	// Save changes
+	if (ImGui::Button("Apply"))
+	{
+		editor.data[editor.selectedKey] = editor.bufferValue;
+		editor.isEditing = false;
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Cancel"))
+	{
+		editor.isEditing = false;
+	}
 	}
 }

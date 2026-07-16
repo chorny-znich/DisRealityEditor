@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include <string_view>
 
 namespace gd
 {
