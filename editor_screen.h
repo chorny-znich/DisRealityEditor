@@ -21,6 +21,9 @@ private:
 	struct FlatIniEditor;
 	std::unique_ptr<FlatIniEditor> mStringEditor;
 	void drawFlatIniEditor(const std::string& title, FlatIniEditor& editor);
+	void drawFlatIniOperationButtons(FlatIniEditor& editor);
+	bool isKeyDuplicate(const std::string& key, FlatIniEditor& editor) const;
+	void resetEditorState(FlatIniEditor& editor);
 
 	sf::View mMainView{ sf::FloatRect({0, 0}, {gd::GraphicsResolution.x, gd::GraphicsResolution.y}) };
 
