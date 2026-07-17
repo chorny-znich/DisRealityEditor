@@ -11,6 +11,7 @@ struct EditorScreen::FlatIniEditor
 {
 	std::map<std::string, std::string> data;
 	std::string selectedKey{};
+	bool isAdding{ false };
 	bool isEditing{ false };
 	char bufferKey[128] = "";
 	char bufferValue[1024] = "";
@@ -143,6 +144,14 @@ void EditorScreen::render(sf::RenderWindow& window)
  */
 void EditorScreen::drawFlatIniEditor(const std::string& title, FlatIniEditor& editor)
 {
+	// Add a new record
+	if (ImGui::Button("Add record"))
+	{
+		editor.isAdding = true;
+	}
+	ImGui::Separator();
+
+	// Display table with records
 	if (ImGui::BeginTable(title.c_str(), 2, ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable |
 		ImGuiTableFlags_RowBg))
 	{
@@ -168,24 +177,49 @@ void EditorScreen::drawFlatIniEditor(const std::string& title, FlatIniEditor& ed
 		}
 		ImGui::EndTable();
 	}
-	// Edit selected record
-	if (editor.isEditing)
+
+	// Add a new record
+	if (editor.isAdding)
 	{
+		editor.selectedKey = "";
+		editor.bufferKey[0] = '\0';
+		editor.bufferValue[0] = '\0';
+
 		ImGui::Separator();
-		ImGui::Text("Edit selected record:");
+		ImGui::Text("Add new record");
 		ImGui::InputText("Key ID", editor.bufferKey, sizeof(editor.bufferKey));
 		ImGui::InputText("Value data", editor.bufferValue, sizeof(editor.bufferValue));
-	
-	// Save changes
-	if (ImGui::Button("Apply"))
-	{
-		editor.data[editor.selectedKey] = editor.bufferValue;
-		editor.isEditing = false;
+
+		if (ImGui::Button("Apply"))
+		{
+			editor.data[editor.bufferKey] = editor.bufferValue;
+			editor.isAdding = false;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel"))
+		{
+			editor.isAdding = false;
+		}
 	}
-	ImGui::SameLine();
-	if (ImGui::Button("Cancel"))
-	{
-		editor.isEditing = false;
-	}
-	}
+
+	// Edit selected record
+  if (editor.isEditing)
+  {
+    ImGui::Separator();
+    ImGui::Text("Edit selected record:");
+    ImGui::InputText("Key ID", editor.bufferKey, sizeof(editor.bufferKey));
+    ImGui::InputText("Value data", editor.bufferValue, sizeof(editor.bufferValue));
+
+    // Save or cancel changes
+    if (ImGui::Button("Apply"))
+    {
+      editor.data[editor.selectedKey] = editor.bufferValue;
+      editor.isEditing = false;
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Cancel"))
+    {
+      editor.isEditing = false;
+    }
+  }
 }
