@@ -29,4 +29,8 @@ private:
 
 	bool mExitEditor{ false };
 	bool mShowStringEditor{ false };
+
+	std::string mProjectPath{};
+	bool mShowOpenProjectModalWindow{ false };
+	char mProjectPathBuffer[512]{""};
 };

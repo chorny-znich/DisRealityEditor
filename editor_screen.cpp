@@ -93,6 +93,11 @@ void EditorScreen::update(float dt)
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Open project"))
+			{
+				mShowOpenProjectModalWindow = true;
+				strcpy_s(mProjectPathBuffer, sizeof(mProjectPathBuffer), mProjectPath.c_str());
+			}
 			if (ImGui::MenuItem("Exit", "Esc"))
 			{
 				mExitEditor = true;
@@ -124,6 +129,19 @@ void EditorScreen::update(float dt)
 			drawFlatIniEditor("String Editor", *mStringEditor);
 		}
 		ImGui::End();
+	}
+	// Choose the path to the current project
+	if (mShowOpenProjectModalWindow)
+	{
+		ImGui::OpenPopup("Select project path");
+		mShowOpenProjectModalWindow = false;
+	}
+
+	if (ImGui::BeginPopupModal("Select project path", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Enter the path to your game project folder");
+		ImGui::InputText("Path to project", mProjectPathBuffer, sizeof(mProjectPathBuffer));
+		ImGui::EndPopup();
 	}
 }
 
