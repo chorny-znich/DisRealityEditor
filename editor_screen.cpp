@@ -130,6 +130,7 @@ void EditorScreen::update(float dt)
 		}
 		ImGui::End();
 	}
+
 	// Choose the path to the current project
 	if (mShowOpenProjectModalWindow)
 	{
@@ -141,6 +142,23 @@ void EditorScreen::update(float dt)
 	{
 		ImGui::Text("Enter the path to your game project folder");
 		ImGui::InputText("Path to project", mProjectPathBuffer, sizeof(mProjectPathBuffer));
+		bool isEmpty = mProjectPathBuffer[0] == '\0';
+		ImGui::BeginDisabled(isEmpty);
+			if (ImGui::Button("Select"))
+			{
+				mProjectPath = mProjectPathBuffer;
+				if (mProjectPath != "" && mProjectPath.back() != '\\')
+				{
+					mProjectPath += '\\';
+				}
+				ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndDisabled();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel"))
+		{
+			ImGui::CloseCurrentPopup();
+		}
 		ImGui::EndPopup();
 	}
 }
