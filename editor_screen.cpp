@@ -15,6 +15,8 @@ struct EditorScreen::FlatIniEditor
 	bool isEditing{ false };
 	char bufferKey[128] = "";
 	char bufferValue[1024] = "";
+	std::string relativePath{};
+	std::string sectionName{};
 };
 
 /**
@@ -53,10 +55,6 @@ struct EditorScreen::ScreenInputVisitor
 EditorScreen::EditorScreen() :
 	mStringEditor(std::make_unique<FlatIniEditor>())
 {
-	mStringEditor->data["back_button"] = "BACK";
-	mStringEditor->data["editor_button"] = "EDITOR";
-	mStringEditor->data["about_button"] = "ABOUT";
-	mStringEditor->data["exit_button"] = "бшунд";
 }
 
 EditorScreen::~EditorScreen() = default;
@@ -110,7 +108,25 @@ void EditorScreen::update(float dt)
 			if (ImGui::MenuItem("Strings"))
 			{
 				mShowStringEditor = true;
-
+				if (mProjectPath != "")
+				{
+					mStringEditor->relativePath = gd::path::StringsPath.data();
+					mStringEditor->sectionName = "strings";
+					std::string stringPath = mProjectPath + mStringEditor->relativePath;
+					mStringEditor->data.clear();
+					try
+					{
+						dr::IniDocument doc = dr::loadIniDocument(stringPath);
+						for (const auto& str : doc.getSection(mStringEditor->sectionName))
+						{
+							mStringEditor->data.insert(str);
+						}
+					}
+					catch (std::exception& e)
+					{
+						std::cout << std::format("Editor error: {}, details: {}\n", mProjectPath, e.what());
+					}
+				}
 			}
 			ImGui::EndMenu();
 		}
@@ -122,6 +138,7 @@ void EditorScreen::update(float dt)
 	{
 		dr::ScreenManager::destroyScreen();
 	}
+
 	if (mShowStringEditor)
 	{
 		if (ImGui::Begin("String editor (strings.ini)", &mShowStringEditor))
@@ -332,4 +349,9 @@ void EditorScreen::resetEditorState(FlatIniEditor& editor)
 	editor.bufferKey[0] = '\0';
 	editor.bufferValue[0] = '\0';
 	editor.selectedKey = "";
+}
+
+
+void EditorScreen::saveFlatIniEditor(FlatIniEditor& editor)
+{
 }

@@ -24,6 +24,7 @@ private:
 	void drawFlatIniOperationButtons(FlatIniEditor& editor);
 	bool isKeyDuplicate(const std::string& key, FlatIniEditor& editor) const;
 	void resetEditorState(FlatIniEditor& editor);
+	void saveFlatIniEditor(FlatIniEditor& editor);
 
 	sf::View mMainView{ sf::FloatRect({0, 0}, {gd::GraphicsResolution.x, gd::GraphicsResolution.y}) };
 

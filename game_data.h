@@ -5,4 +5,9 @@
 namespace gd
 {
   const sf::Vector2f GraphicsResolution{ 1920.f, 1080.f };
+
+  namespace path
+  {
+    constexpr std::string_view StringsPath = "data\\strings.ini";
+  }
 }
