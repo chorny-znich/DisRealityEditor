@@ -24,7 +24,13 @@ private:
 	void drawFlatIniOperationButtons(FlatIniEditor& editor);
 	bool isKeyDuplicate(const std::string& key, FlatIniEditor& editor) const;
 	void resetEditorState(FlatIniEditor& editor);
-	void saveFlatIniEditor(FlatIniEditor& editor);
+	void saveFlatIniEditor(FlatIniEditor& editor) const;
+
+	// Visual TilemapEditor
+	struct TilemapEditor;
+	std::unique_ptr<TilemapEditor> mTilemapEditor;
+	bool mShowTilemapEditor{ false };
+	void drawTilemapEditor(TilemapEditor& editor);
 
 	sf::View mMainView{ sf::FloatRect({0, 0}, {gd::GraphicsResolution.x, gd::GraphicsResolution.y}) };
 

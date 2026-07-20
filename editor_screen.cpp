@@ -3,6 +3,7 @@
 #include <imgui-SFML.h>
 #include <map>
 #include <string>
+#include <fstream>
 
 /**
  * @brief Common structure for all "flat" ini editors
@@ -17,6 +18,14 @@ struct EditorScreen::FlatIniEditor
 	char bufferValue[1024] = "";
 	std::string relativePath{};
 	std::string sectionName{};
+};
+
+struct EditorScreen::TilemapEditor
+{
+	dr::Map currentMap;
+	int selectedFloorIdx;
+	int selectedLevelObjIdx;
+	int selectedstaticObjIdx;
 };
 
 /**
@@ -53,7 +62,8 @@ struct EditorScreen::ScreenInputVisitor
 };
 
 EditorScreen::EditorScreen() :
-	mStringEditor(std::make_unique<FlatIniEditor>())
+	mStringEditor(std::make_unique<FlatIniEditor>()),
+	mTilemapEditor(std::make_unique<TilemapEditor>())
 {
 }
 
@@ -128,6 +138,10 @@ void EditorScreen::update(float dt)
 					}
 				}
 			}
+			if (ImGui::MenuItem("TilemapEditor"))
+			{
+				mShowTilemapEditor = true;
+			}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
@@ -144,6 +158,15 @@ void EditorScreen::update(float dt)
 		if (ImGui::Begin("String editor (strings.ini)", &mShowStringEditor))
 		{
 			drawFlatIniEditor("String Editor", *mStringEditor);
+		}
+		ImGui::End();
+	}
+
+	if (mShowTilemapEditor)
+	{
+		if (ImGui::Begin("Tilemap editor", &mShowTilemapEditor))
+		{
+			drawTilemapEditor(*mTilemapEditor);		
 		}
 		ImGui::End();
 	}
@@ -226,6 +249,18 @@ void EditorScreen::drawFlatIniEditor(const std::string& title, FlatIniEditor& ed
 		}
 	}
 	ImGui::EndDisabled();
+
+	ImGui::SameLine();
+
+	ImGui::BeginDisabled(mProjectPath == "");
+	if (ImGui::Button("Save and close"))
+	{
+		saveFlatIniEditor(editor);
+		resetEditorState(editor);
+		mShowStringEditor = false;
+	}
+	ImGui::EndDisabled();
+
 	ImGui::Separator();
 
 	// Display table with records
@@ -305,6 +340,7 @@ void EditorScreen::drawFlatIniOperationButtons(FlatIniEditor& editor)
 		}
 		resetEditorState(editor);
 	}
+	ImGui::EndDisabled();
 
 	ImGui::SameLine();
 
@@ -312,7 +348,6 @@ void EditorScreen::drawFlatIniOperationButtons(FlatIniEditor& editor)
 	{
 		resetEditorState(editor);
 	}
-	ImGui::EndDisabled();
 
 	if (isDuplicate)
 	{
@@ -351,7 +386,36 @@ void EditorScreen::resetEditorState(FlatIniEditor& editor)
 	editor.selectedKey = "";
 }
 
+/**
+ * @brief Save changes in the ini file to the disk
+ * @param editor reference to the current editor
+ */
+void EditorScreen::saveFlatIniEditor(FlatIniEditor& editor) const
+{
+	if (mProjectPath != "")
+	{
+		std::string filepath = mProjectPath + editor.relativePath;
+		std::ofstream ofs(filepath);
+		if (ofs.is_open())
+		{
+			ofs << "[" << editor.sectionName << "]\n";
+			for (const auto& rec : editor.data)
+			{
+				ofs << rec.first << "=" << rec.second << "\n";
+			}
+			ofs.close();
+		}
+		else
+		{
+			std::cout << std::format("Can't open the file '{}'\n", filepath);
+		}
+	}
+}
 
-void EditorScreen::saveFlatIniEditor(FlatIniEditor& editor)
+/**
+ * @brief 
+ * @param editor 
+ */
+void EditorScreen::drawTilemapEditor(TilemapEditor& editor)
 {
 }
