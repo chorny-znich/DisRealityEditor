@@ -191,6 +191,10 @@ void EditorScreen::update(float dt)
 				{
 					mProjectPath += '\\';
 				}
+				dr::Textures::init(mProjectPath + "data/texture_list.ini");
+				dr::SpriteDatabase::instance().init(mProjectPath + "data/tile_map.ini");
+				mFloorAsset.init(dr::SpriteCategory::Floor);
+				std::filesystem::current_path(mProjectPath);
 				ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndDisabled();
@@ -210,6 +214,10 @@ void EditorScreen::update(float dt)
 void EditorScreen::render(sf::RenderWindow& window)
 {
 	window.setView(mMainView);
+	if (mShowTilemapEditor)
+	{
+		mFloorAsset.render(window, { 800.f, 800.f });
+	}
 	ImGui::SFML::Render(window);
 }
 
@@ -413,9 +421,24 @@ void EditorScreen::saveFlatIniEditor(FlatIniEditor& editor) const
 }
 
 /**
- * @brief 
- * @param editor 
+ * @brief Visual editor for build the game maps
+ * @param editor referense to the structure that has editor's data and settings
  */
 void EditorScreen::drawTilemapEditor(TilemapEditor& editor)
 {
+	if (ImGui::BeginTabBar("Tilemap tabs"))
+	{
+		if (ImGui::BeginTabItem("New map"))
+		{
+			ImGui::Text("For creating a new map");
+			ImGui::EndTabItem();
+		}
+		
+		if (ImGui::BeginTabItem("Load map"))
+		{
+			ImGui::Text("For loading a new map");
+			ImGui::EndTabItem();
+		}
+		ImGui::EndTabBar();
+	}
 }
