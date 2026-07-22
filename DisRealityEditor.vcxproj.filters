@@ -73,7 +73,7 @@
       <Filter>Исходные файлы\Screen</Filter>
     </ClCompile>
     <ClCompile Include="asset_palette.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +114,7 @@
       <Filter>Файлы заголовков\Screen</Filter>
     </ClInclude>
     <ClInclude Include="asset_palette.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

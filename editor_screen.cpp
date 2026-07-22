@@ -191,10 +191,11 @@ void EditorScreen::update(float dt)
 				{
 					mProjectPath += '\\';
 				}
+				std::filesystem::current_path(mProjectPath);
 				dr::Textures::init(mProjectPath + "data/texture_list.ini");
 				dr::SpriteDatabase::instance().init(mProjectPath + "data/tile_map.ini");
 				mFloorAsset.init(dr::SpriteCategory::Floor);
-				std::filesystem::current_path(mProjectPath);
+				
 				ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndDisabled();
@@ -216,7 +217,7 @@ void EditorScreen::render(sf::RenderWindow& window)
 	window.setView(mMainView);
 	if (mShowTilemapEditor)
 	{
-		mFloorAsset.render(window, { 800.f, 800.f });
+		mFloorAsset.draw();
 	}
 	ImGui::SFML::Render(window);
 }
