@@ -31,7 +31,7 @@ private:
 	struct TilemapEditor;
 	std::unique_ptr<TilemapEditor> mTilemapEditor;
 	bool mShowTilemapEditor{ false };
-	void drawTilemapEditor(TilemapEditor& editor);
+	void drawTilemapEditor();
 	AssetPalette mFloorAsset;
 
 	sf::View mMainView{ sf::FloatRect({0, 0}, {gd::GraphicsResolution.x, gd::GraphicsResolution.y}) };

@@ -37,6 +37,9 @@
     <Filter Include="Исходные файлы\UI">
       <UniqueIdentifier>{9b15c089-b012-4269-8075-27d95e7227dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Data">
+      <UniqueIdentifier>{5f6c47cd-3d02-4903-8db0-99f08fd4b1b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -74,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="asset_palette.cpp">
       <Filter>Исходные файлы\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="tilemap_editor.cpp">
+      <Filter>Исходные файлы\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="flat_ini_editor.cpp">
+      <Filter>Исходные файлы\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="asset_palette.h">
       <Filter>Файлы заголовков\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="editor_struct.h">
+      <Filter>Файлы заголовков\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

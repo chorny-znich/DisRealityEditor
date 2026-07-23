@@ -136,6 +136,7 @@
     <ClCompile Include="about_screen.cpp" />
     <ClCompile Include="asset_palette.cpp" />
     <ClCompile Include="editor_screen.cpp" />
+    <ClCompile Include="flat_ini_editor.cpp" />
     <ClCompile Include="game_engine.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -145,11 +146,13 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_menu_screen.cpp" />
+    <ClCompile Include="tilemap_editor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="about_screen.h" />
     <ClInclude Include="asset_palette.h" />
     <ClInclude Include="editor_screen.h" />
+    <ClInclude Include="editor_struct.h" />
     <ClInclude Include="game_data.h" />
     <ClInclude Include="game_engine.h" />
     <ClInclude Include="ImGui\imconfig.h" />
