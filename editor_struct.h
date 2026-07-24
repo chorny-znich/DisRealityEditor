@@ -29,3 +29,16 @@ struct EditorScreen::TilemapEditor
 	int selectedLevelObjIdx;
 	int selectedstaticObjIdx;
 };
+
+/**
+ * @brief Stats for working with Tilemap editor
+ */
+enum class TilemapUIStates
+{
+	SELECT,
+	CREATE,
+	LOAD,
+	EDIT
+};
+
+inline TilemapUIStates tilemapUIState = TilemapUIStates::SELECT;

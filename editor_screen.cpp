@@ -188,9 +188,9 @@ void EditorScreen::update(float dt)
 void EditorScreen::render(sf::RenderWindow& window)
 {
 	window.setView(mMainView);
-	if (mShowTilemapEditor)
+	if (mMapIsReady)
 	{
-		mFloorAsset.draw();
+		window.draw(mTilemapEditor->currentMap);
 	}
 	ImGui::SFML::Render(window);
 }

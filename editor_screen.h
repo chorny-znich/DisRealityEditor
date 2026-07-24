@@ -33,6 +33,7 @@ private:
 	bool mShowTilemapEditor{ false };
 	void drawTilemapEditor();
 	AssetPalette mFloorAsset;
+	bool mMapIsReady{ false };
 
 	sf::View mMainView{ sf::FloatRect({0, 0}, {gd::GraphicsResolution.x, gd::GraphicsResolution.y}) };
 

@@ -7,6 +7,10 @@
 void AssetPalette::init(dr::SpriteCategory type)
 {
   mSpriteIds = dr::SpriteDatabase::instance().getIdByCategory(type);
+  if (!mSpriteIds.empty())
+  {
+    mSelectedId = mSpriteIds[0];
+  }
   sf::RenderTexture canvas(BUTTON_SPRITE_SIZE);
   mButtonSprites.clear();
 
@@ -29,8 +33,9 @@ void AssetPalette::init(dr::SpriteCategory type)
  * @brief 
  * @param target 
  */
-void AssetPalette::draw()
+bool AssetPalette::draw()
 {
+  bool isAnyItemSelected = false;
   for (const auto& [id, texture] : mButtonSprites)
   {
     std::string buttonID = "##tile_" + std::to_string(id);
@@ -38,6 +43,28 @@ void AssetPalette::draw()
     if (ImGui::ImageButton(buttonID.c_str(), texture, buttonSize))
     {
       mSelectedId = id;
+      isAnyItemSelected = true;
      }
   }
+  return isAnyItemSelected;
+}
+
+/**
+ * @brief 
+ * @param id 
+ * @return 
+ */
+const sf::Texture& AssetPalette::getSelectedTexture() const
+{
+  return mButtonSprites.at(mSelectedId);
+}
+
+const sf::Vector2f AssetPalette::getButtonSpriteSize() const
+{
+  return { static_cast<float>(BUTTON_SPRITE_SIZE.x), static_cast<float>(BUTTON_SPRITE_SIZE.y) };
+}
+
+uint16_t AssetPalette::getSelectedId() const
+{
+  return mSelectedId;
 }

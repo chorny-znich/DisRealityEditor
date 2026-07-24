@@ -40,6 +40,9 @@
     <Filter Include="Файлы заголовков\Data">
       <UniqueIdentifier>{5f6c47cd-3d02-4903-8db0-99f08fd4b1b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Screen\Editor">
+      <UniqueIdentifier>{bc87cd0c-cab1-421e-af0a-477980e127ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,17 +75,17 @@
     <ClCompile Include="ImGui\imgui-SFML.cpp">
       <Filter>Исходные файлы\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="editor_screen.cpp">
-      <Filter>Исходные файлы\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="asset_palette.cpp">
       <Filter>Исходные файлы\UI</Filter>
     </ClCompile>
     <ClCompile Include="tilemap_editor.cpp">
-      <Filter>Исходные файлы\Screen</Filter>
+      <Filter>Исходные файлы\Screen\Editor</Filter>
     </ClCompile>
     <ClCompile Include="flat_ini_editor.cpp">
-      <Filter>Исходные файлы\Screen</Filter>
+      <Filter>Исходные файлы\Screen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="editor_screen.cpp">
+      <Filter>Исходные файлы\Screen\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
