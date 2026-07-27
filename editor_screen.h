@@ -31,11 +31,12 @@ private:
 	struct TilemapEditor;
 	std::unique_ptr<TilemapEditor> mTilemapEditor;
 	bool mShowTilemapEditor{ false };
-	void drawTilemapEditor();
+	void drawTilemapEditor(float dt);
 	AssetPalette mFloorAsset;
 	bool mMapIsReady{ false };
 
 	sf::View mMainView{ sf::FloatRect({0, 0}, {gd::GraphicsResolution.x, gd::GraphicsResolution.y}) };
+	sf::View mTilemapView;
 
 	bool mExitEditor{ false };
 	bool mShowStringEditor{ false };
@@ -43,4 +44,6 @@ private:
 	std::string mProjectPath{};
 	bool mShowOpenProjectModalWindow{ false };
 	char mProjectPathBuffer[512]{""};
+
+	dr::CursorComponent mCursor{mMainView};
 };

@@ -21,6 +21,7 @@ struct EditorScreen::ScreenInputVisitor
 	void operator()(const sf::Event::MouseMoved& mouseMoved)
 	{
 		sf::Vector2f mouseViewCoords = window.mapPixelToCoords(mouseMoved.position);
+		screen.mCursor.handleInput(mouseMoved.position, window);
 	}
 
 	/**
@@ -57,6 +58,11 @@ void EditorScreen::init()
 	io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/font/arial.ttf", 16.f, nullptr,
 		io.Fonts->GetGlyphRangesCyrillic());
 	ImGui::SFML::UpdateFontTexture();
+
+	float topOffset = 40.f / gd::GraphicsResolution.y;
+	sf::FloatRect viewBounds({ 0.f, 0.f }, { gd::GraphicsResolution.x, gd::GraphicsResolution.y });
+	mTilemapView = sf::View(viewBounds);
+	mTilemapView.setViewport(sf::FloatRect({ 0.f, topOffset }, { 1.f, 1.f - topOffset }));
 }
 
 void EditorScreen::handleInput(const sf::Event& event, sf::RenderWindow& window)
@@ -118,6 +124,7 @@ void EditorScreen::update(float dt)
 			if (ImGui::MenuItem("TilemapEditor"))
 			{
 				mShowTilemapEditor = true;
+				mCursor.init();
 			}
 			ImGui::EndMenu();
 		}
@@ -141,7 +148,7 @@ void EditorScreen::update(float dt)
 
 	if (mShowTilemapEditor)
 	{
-			drawTilemapEditor();		
+			drawTilemapEditor(dt);		
 	}
 
 	// Choose the path to the current project
@@ -179,6 +186,14 @@ void EditorScreen::update(float dt)
 		}
 		ImGui::EndPopup();
 	}
+
+	/*ImGui::Begin("Mouse coords");
+	ImGui::Text(std::format("x:{}\ny:{}", sf::Mouse::getPosition().x, sf::Mouse::getPosition().y).c_str());
+	ImGui::End();*/
+	ImGui::Begin("Tile cursor coords");
+	ImGui::Text(std::format("tile x:{}\ntile y:{}", mCursor.getTilePosition().x, 
+		mCursor.getTilePosition().y).c_str());
+	ImGui::End();
 }
 
 /**
@@ -187,11 +202,13 @@ void EditorScreen::update(float dt)
  */
 void EditorScreen::render(sf::RenderWindow& window)
 {
-	window.setView(mMainView);
+	window.setView(mTilemapView);
 	if (mMapIsReady)
 	{
 		window.draw(mTilemapEditor->currentMap);
+		mCursor.render(window);
 	}
+	window.setView(mMainView);
 	ImGui::SFML::Render(window);
 }
 
