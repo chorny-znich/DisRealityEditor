@@ -28,6 +28,7 @@ struct EditorScreen::TilemapEditor
 	int selectedFloorIdx;
 	int selectedLevelObjIdx;
 	int selectedstaticObjIdx;
+	sf::Vector2i selectedTile{-1, -1};
 };
 
 /**

@@ -68,3 +68,8 @@ uint16_t AssetPalette::getSelectedId() const
 {
   return mSelectedId;
 }
+
+void AssetPalette::setSelectedId(uint16_t id)
+{
+  mSelectedId = id;
+}

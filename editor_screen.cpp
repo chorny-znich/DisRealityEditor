@@ -33,6 +33,22 @@ struct EditorScreen::ScreenInputVisitor
 		if (mouseButton.button == sf::Mouse::Button::Left)
 		{
 			sf::Vector2f mouseViewCoords = window.mapPixelToCoords(mouseButton.position);
+			if (!ImGui::GetIO().WantCaptureMouse)
+			{
+				screen.mTilemapEditor->selectedTile = screen.mCursor.getTilePosition();
+				screen.mCursor.startEdit();
+			}
+		}
+		if (mouseButton.button == sf::Mouse::Button::Right)
+		{
+			screen.mTilemapEditor->selectedTile = screen.mCursor.getTilePosition();
+			screen.mCursor.startEdit();
+			screen.mTileEdited = true;
+		}
+		if (mouseButton.button == sf::Mouse::Button::Middle)
+		{
+			screen.mCursor.finishEdit();
+			screen.mTileEdited = false;
 		}
 	}
 

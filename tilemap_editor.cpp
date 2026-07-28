@@ -8,6 +8,8 @@
  */
 void EditorScreen::drawTilemapEditor(float dt)
 {
+	static bool showPopupPalette{ false };
+
 	if (ImGui::Begin("Tilemap editor", &mShowTilemapEditor))
 	{
 		if (tilemapUIState == TilemapUIStates::SELECT)
@@ -34,7 +36,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 			static int mapIndex{ 0 };
 			static sf::Vector2i mapSize{ 0, 0 };
 			static int selectedFloorItem{ 0 };
-			static bool showPopupPalette{ false };
+			
 
 			ImGui::InputInt("Map ID", &mapIndex);
 			ImGui::InputInt("Map width", &mapSize.x);
@@ -50,15 +52,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 				showPopupPalette = true;
 			}
 
-			if (showPopupPalette)
-			{
-				ImGui::Begin("Choose a floor tile", &showPopupPalette, ImGuiWindowFlags_AlwaysAutoResize);
-				if (mFloorAsset.draw())
-				{
-					showPopupPalette = false;
-				}
-				ImGui::End();
-			}
+			
 
 			ImGui::Separator();
 			if (ImGui::Button("Create map", ImVec2(200, 50)))
@@ -92,9 +86,49 @@ void EditorScreen::drawTilemapEditor(float dt)
 		else if (tilemapUIState == TilemapUIStates::EDIT)
 		{
 			ImGui::Text("Edit a map");
+			if (mTilemapEditor->selectedTile.x != -1)
+			{
+				ImGui::Begin("Tile inspector");
+				ImGui::SeparatorText("");
+				ImGui::Text(std::format("Tile position\nx:{}\ty:{}", mTilemapEditor->selectedTile.x,
+					mTilemapEditor->selectedTile.y).c_str());
+
+				auto mapWidth = mTilemapEditor->currentMap.getMapSize().x;
+				auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
+					mTilemapEditor->selectedTile.x;
+				auto& tileID = mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId;
+				mFloorAsset.setSelectedId(tileID);
+				ImGui::Text("Floor tile:");
+				if (ImGui::ImageButton("##floor_tile_inspector", mFloorAsset.getSelectedTexture(),
+					mFloorAsset.getButtonSpriteSize()))
+				{
+					showPopupPalette = true;
+				}
+				ImGui::End();
+			}
+
 			mCursor.update(dt);
 		}
 
+		ImGui::End();
+	}
+
+	if (showPopupPalette)
+	{
+		ImGui::Begin("Choose a floor tile", &showPopupPalette, ImGuiWindowFlags_AlwaysAutoResize);
+		if (mFloorAsset.draw())
+		{
+			showPopupPalette = false;
+
+			if (tilemapUIState == TilemapUIStates::EDIT)
+			{
+				auto mapWidth = mTilemapEditor->currentMap.getMapSize().x;
+				auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
+					mTilemapEditor->selectedTile.x;
+				mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId = mFloorAsset.getSelectedId();
+				mTilemapEditor->currentMap.updateFloorMap(selectedID, mFloorAsset.getSelectedId());
+			}
+		}
 		ImGui::End();
 	}
 }
