@@ -191,6 +191,7 @@ void EditorScreen::update(float dt)
 				dr::Textures::init(mProjectPath + "data/texture_list.ini");
 				dr::SpriteDatabase::instance().init(mProjectPath + "data/tile_map.ini");
 				mFloorAsset.init(dr::SpriteCategory::Floor);
+				mLevelObjectAsset.init(dr::SpriteCategory::Wall);
 				
 				ImGui::CloseCurrentPopup();
 		}

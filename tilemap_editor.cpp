@@ -102,8 +102,63 @@ void EditorScreen::drawTilemapEditor(float dt)
 				if (ImGui::ImageButton("##floor_tile_inspector", mFloorAsset.getSelectedTexture(),
 					mFloorAsset.getButtonSpriteSize()))
 				{
-					showPopupPalette = true;
+					ImGui::OpenPopup("FloorPalettePopup");
+					//showPopupPalette = true;
 				}
+				ImGui::Text("Level tile:");
+				if (ImGui::ImageButton("##level_tile_inspector", mLevelObjectAsset.getSelectedTexture(),
+					mLevelObjectAsset.getButtonSpriteSize()))
+				{
+					ImGui::OpenPopup("level_object_palette_popup");
+					//showPopupPalette = true;
+				}
+
+				if (ImGui::BeginPopup("FloorPalettePopup", ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					if (mFloorAsset.draw())
+					{
+						showPopupPalette = false;
+
+						if (tilemapUIState == TilemapUIStates::EDIT)
+						{
+							auto mapWidth = mTilemapEditor->currentMap.getMapSize().x;
+							auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
+								mTilemapEditor->selectedTile.x;
+							mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId = mFloorAsset.getSelectedId();
+							mTilemapEditor->currentMap.updateFloorMap(selectedID, mFloorAsset.getSelectedId());
+							ImGui::CloseCurrentPopup();
+						}
+					}
+					ImGui::EndPopup();
+				}
+
+				if (ImGui::BeginPopup("level_object_palette_popup", ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					if (mLevelObjectAsset.draw())
+					{
+						if (tilemapUIState == TilemapUIStates::EDIT)
+						{
+							auto mapWidth = mTilemapEditor->currentMap.getMapSize().x;
+							auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
+								mTilemapEditor->selectedTile.x;
+							dr::Location& loc = mTilemapEditor->currentMap.getLocation(selectedID);
+							uint16_t currentLayerID = loc.mLevelLayerId;
+							uint16_t newLayerId = mLevelObjectAsset.getSelectedId();
+							loc.mLevelLayerId = newLayerId;
+							if (newLayerId == -1)
+							{
+								if (currentLayerID != -1)
+								{
+
+								}
+							}
+
+							ImGui::CloseCurrentPopup();
+						}
+					}
+					ImGui::EndPopup();
+				}
+
 				ImGui::End();
 			}
 
@@ -112,6 +167,8 @@ void EditorScreen::drawTilemapEditor(float dt)
 
 		ImGui::End();
 	}
+
+	
 
 	if (showPopupPalette)
 	{

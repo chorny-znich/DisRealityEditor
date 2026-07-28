@@ -33,6 +33,7 @@ private:
 	bool mShowTilemapEditor{ false };
 	void drawTilemapEditor(float dt);
 	AssetPalette mFloorAsset;
+	AssetPalette mLevelObjectAsset;
 	bool mMapIsReady{ false };
 	bool mTileEdited{ false };
 

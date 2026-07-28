@@ -16,8 +16,10 @@ public:
   const sf::Vector2f getButtonSpriteSize() const;
   uint16_t getSelectedId() const;
   void setSelectedId(uint16_t id);
+  dr::SpriteCategory getSpriteCategory() const;
 private:
   const sf::Vector2u BUTTON_SPRITE_SIZE{ 64u, 64u };
+  dr::SpriteCategory mSpriteType;
   std::vector<std::uint16_t> mSpriteIds;
   std::uint16_t mSelectedId{ 0 };
   std::unordered_map<uint16_t, sf::Texture> mButtonSprites;

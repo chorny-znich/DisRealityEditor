@@ -6,6 +6,7 @@
 
 void AssetPalette::init(dr::SpriteCategory type)
 {
+  mSpriteType = type;
   mSpriteIds = dr::SpriteDatabase::instance().getIdByCategory(type);
   if (!mSpriteIds.empty())
   {
@@ -72,4 +73,9 @@ uint16_t AssetPalette::getSelectedId() const
 void AssetPalette::setSelectedId(uint16_t id)
 {
   mSelectedId = id;
+}
+
+dr::SpriteCategory AssetPalette::getSpriteCategory() const
+{
+  return mSpriteType;
 }
