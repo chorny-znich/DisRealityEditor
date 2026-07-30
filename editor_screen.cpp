@@ -207,10 +207,10 @@ void EditorScreen::update(float dt)
 	/*ImGui::Begin("Mouse coords");
 	ImGui::Text(std::format("x:{}\ny:{}", sf::Mouse::getPosition().x, sf::Mouse::getPosition().y).c_str());
 	ImGui::End();*/
-	/*ImGui::Begin("Tile cursor coords");
+	ImGui::Begin("Tile cursor coords");
 	ImGui::Text(std::format("tile x:{}\ntile y:{}", mCursor.getTilePosition().x, 
 		mCursor.getTilePosition().y).c_str());
-	ImGui::End();*/
+	ImGui::End();
 }
 
 /**
@@ -228,3 +228,4 @@ void EditorScreen::render(sf::RenderWindow& window)
 	window.setView(mMainView);
 	ImGui::SFML::Render(window);
 }
+
