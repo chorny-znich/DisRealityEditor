@@ -144,13 +144,16 @@ void EditorScreen::drawTilemapEditor(float dt)
 							dr::Location& loc = mTilemapEditor->currentMap.getLocation(selectedID);
 							uint16_t currentLayerID = loc.mLevelLayerId;
 							uint16_t newLayerId = mLevelObjectAsset.getSelectedId();
-							loc.mLevelLayerId = newLayerId;
-							if (newLayerId == -1)
-							{
-								if (currentLayerID != -1)
-								{
 
+							if (newLayerId != 0)
+							{
+								if (currentLayerID != 0)
+								{
+									loc.mLevelLayerId = 0;
+									mTilemapEditor->currentMap.deleteLevelObject(loc.mId);
 								}
+								loc.mLevelLayerId = newLayerId;
+								mTilemapEditor->currentMap.addLevelObject(mTilemapEditor->currentMap.createLevelObject(loc.mId));
 							}
 
 							ImGui::CloseCurrentPopup();
