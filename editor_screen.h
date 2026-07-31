@@ -48,4 +48,6 @@ private:
 	char mProjectPathBuffer[512]{""};
 
 	dr::CursorComponent mCursor{mMainView};
+
+	dr::MapManager mMapManager;
 };

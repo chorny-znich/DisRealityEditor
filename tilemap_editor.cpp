@@ -62,7 +62,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 				mTilemapEditor->currentMap.setFloorTextureId(info.textureId);
 				mTilemapEditor->currentMap.createMap(mapIndex, 
 					{static_cast<unsigned int>(mapSize.x), static_cast<unsigned int>(mapSize.y)}, selectedID);
-				
+
 				mMapIsReady = true;
 				mCursor.setMapSize({ mapSize.x, mapSize.y });
 				tilemapUIState = TilemapUIStates::EDIT;
@@ -85,7 +85,11 @@ void EditorScreen::drawTilemapEditor(float dt)
 
 		else if (tilemapUIState == TilemapUIStates::EDIT)
 		{
-			ImGui::Text("Edit a map");
+			if (ImGui::Button("Save map"))
+			{
+				mMapManager.saveMap(mTilemapEditor->currentMap);
+			}
+
 			if (mTilemapEditor->selectedTile.x != -1)
 			{
 				ImGui::Begin("Tile inspector");
@@ -103,14 +107,12 @@ void EditorScreen::drawTilemapEditor(float dt)
 					mFloorAsset.getButtonSpriteSize()))
 				{
 					ImGui::OpenPopup("FloorPalettePopup");
-					//showPopupPalette = true;
 				}
 				ImGui::Text("Level tile:");
 				if (ImGui::ImageButton("##level_tile_inspector", mLevelObjectAsset.getSelectedTexture(),
 					mLevelObjectAsset.getButtonSpriteSize()))
 				{
 					ImGui::OpenPopup("level_object_palette_popup");
-					//showPopupPalette = true;
 				}
 
 				if (ImGui::BeginPopup("FloorPalettePopup", ImGuiWindowFlags_AlwaysAutoResize))
