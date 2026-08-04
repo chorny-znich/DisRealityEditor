@@ -32,8 +32,9 @@ private:
 	std::unique_ptr<TilemapEditor> mTilemapEditor;
 	bool mShowTilemapEditor{ false };
 	void drawTilemapEditor(float dt);
-	AssetPalette mFloorAsset;
-	AssetPalette mLevelObjectAsset;
+	AssetPalette mFloorPalette;
+	AssetPalette mArchitecturePalette;
+	AssetPalette mDecorationPalette;
 	bool mMapIsReady{ false };
 	bool mTileEdited{ false };
 

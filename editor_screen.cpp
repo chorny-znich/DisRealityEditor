@@ -190,8 +190,9 @@ void EditorScreen::update(float dt)
 				std::filesystem::current_path(mProjectPath);
 				dr::Textures::init(mProjectPath + "data/texture_list.ini");
 				dr::SpriteDatabase::instance().init(mProjectPath + "data/tile_map.ini");
-				mFloorAsset.init(dr::SpriteCategory::Floor);
-				mLevelObjectAsset.init(dr::SpriteCategory::Wall);
+				mFloorPalette.init(dr::SpriteCategory::Floor);
+				mArchitecturePalette.init(dr::SpriteCategory::Architecture);
+				mDecorationPalette.init(dr::SpriteCategory::Decoration);
 				
 				ImGui::CloseCurrentPopup();
 		}
@@ -228,4 +229,3 @@ void EditorScreen::render(sf::RenderWindow& window)
 	window.setView(mMainView);
 	ImGui::SFML::Render(window);
 }
-

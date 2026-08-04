@@ -47,7 +47,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 			
 			ImGui::Text("Choose floor tile");
 			ImGui::SameLine();
-			if (ImGui::ImageButton("##floor preview", mFloorAsset.getSelectedTexture(), mFloorAsset.getButtonSpriteSize()))
+			if (ImGui::ImageButton("##floor preview", mFloorPalette.getSelectedTexture(), mFloorPalette.getButtonSpriteSize()))
 			{
 				showPopupPalette = true;
 			}
@@ -57,7 +57,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 			ImGui::Separator();
 			if (ImGui::Button("Create map", ImVec2(200, 50)))
 			{
-				uint16_t selectedID = mFloorAsset.getSelectedId();
+				uint16_t selectedID = mFloorPalette.getSelectedId();
 				dr::SpriteInfo info = dr::SpriteDatabase::instance().getSpriteInfo(selectedID);
 				mTilemapEditor->currentMap.setFloorTextureId(info.textureId);
 				mTilemapEditor->currentMap.createMap(mapIndex, 
@@ -101,23 +101,29 @@ void EditorScreen::drawTilemapEditor(float dt)
 				auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
 					mTilemapEditor->selectedTile.x;
 				auto& tileID = mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId;
-				mFloorAsset.setSelectedId(tileID);
+				mFloorPalette.setSelectedId(tileID);
 				ImGui::Text("Floor tile:");
-				if (ImGui::ImageButton("##floor_tile_inspector", mFloorAsset.getSelectedTexture(),
-					mFloorAsset.getButtonSpriteSize()))
+				if (ImGui::ImageButton("##floor_tile_inspector", mFloorPalette.getSelectedTexture(),
+					mFloorPalette.getButtonSpriteSize()))
 				{
 					ImGui::OpenPopup("FloorPalettePopup");
 				}
 				ImGui::Text("Level tile:");
-				if (ImGui::ImageButton("##level_tile_inspector", mLevelObjectAsset.getSelectedTexture(),
-					mLevelObjectAsset.getButtonSpriteSize()))
+				if (ImGui::ImageButton("##architecture_tile_inspector", mArchitecturePalette.getSelectedTexture(),
+					mArchitecturePalette.getButtonSpriteSize()))
 				{
-					ImGui::OpenPopup("level_object_palette_popup");
+					ImGui::OpenPopup("architecture_palette_popup");
+				}
+
+				if (ImGui::ImageButton("##decoration_tile_inspector", mDecorationPalette.getSelectedTexture(),
+					mDecorationPalette.getButtonSpriteSize()))
+				{
+					ImGui::OpenPopup("decoration_palette_popup");
 				}
 
 				if (ImGui::BeginPopup("FloorPalettePopup", ImGuiWindowFlags_AlwaysAutoResize))
 				{
-					if (mFloorAsset.draw())
+					if (mFloorPalette.draw())
 					{
 						showPopupPalette = false;
 
@@ -126,17 +132,17 @@ void EditorScreen::drawTilemapEditor(float dt)
 							auto mapWidth = mTilemapEditor->currentMap.getMapSize().x;
 							auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
 								mTilemapEditor->selectedTile.x;
-							mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId = mFloorAsset.getSelectedId();
-							mTilemapEditor->currentMap.updateFloorMap(selectedID, mFloorAsset.getSelectedId());
+							mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId = mFloorPalette.getSelectedId();
+							mTilemapEditor->currentMap.updateFloorMap(selectedID, mFloorPalette.getSelectedId());
 							ImGui::CloseCurrentPopup();
 						}
 					}
 					ImGui::EndPopup();
 				}
 
-				if (ImGui::BeginPopup("level_object_palette_popup", ImGuiWindowFlags_AlwaysAutoResize))
+				if (ImGui::BeginPopup("architecture_palette_popup", ImGuiWindowFlags_AlwaysAutoResize))
 				{
-					if (mLevelObjectAsset.draw())
+					if (mArchitecturePalette.draw())
 					{
 						if (tilemapUIState == TilemapUIStates::EDIT)
 						{
@@ -144,18 +150,48 @@ void EditorScreen::drawTilemapEditor(float dt)
 							auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
 								mTilemapEditor->selectedTile.x;
 							dr::Location& loc = mTilemapEditor->currentMap.getLocation(selectedID);
-							uint16_t currentLayerID = loc.mLevelLayerId;
-							uint16_t newLayerId = mLevelObjectAsset.getSelectedId();
+							uint16_t currentLayerID = loc.mArchitectureLayerId;
+							uint16_t newLayerId = mArchitecturePalette.getSelectedId();
 
 							if (newLayerId != 0)
 							{
 								if (currentLayerID != 0)
 								{
-									loc.mLevelLayerId = 0;
-									mTilemapEditor->currentMap.deleteLevelObject(loc.mId);
+									loc.mArchitectureLayerId = 0;
+									mTilemapEditor->currentMap.deleteArchitectureActor(loc.mId);
 								}
-								loc.mLevelLayerId = newLayerId;
-								mTilemapEditor->currentMap.addLevelObject(mTilemapEditor->currentMap.createLevelObject(loc.mId));
+								loc.mArchitectureLayerId = newLayerId;
+								mTilemapEditor->currentMap.addArchitectureActor(mTilemapEditor->currentMap.createArchitectureActor(loc.mId));
+							}
+
+							ImGui::CloseCurrentPopup();
+						}
+					}
+					ImGui::EndPopup();
+				}
+
+				if (ImGui::BeginPopup("decoration_palette_popup", ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					if (mDecorationPalette.draw())
+					{
+						if (tilemapUIState == TilemapUIStates::EDIT)
+						{
+							auto mapWidth = mTilemapEditor->currentMap.getMapSize().x;
+							auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
+								mTilemapEditor->selectedTile.x;
+							dr::Location& loc = mTilemapEditor->currentMap.getLocation(selectedID);
+							uint16_t currentLayerID = loc.mDecorationLayerId;
+							uint16_t newLayerId = mDecorationPalette.getSelectedId();
+
+							if (newLayerId != 0)
+							{
+								if (currentLayerID != 0)
+								{
+									loc.mDecorationLayerId = 0;
+									mTilemapEditor->currentMap.deleteDecorationActor(loc.mId);
+								}
+								loc.mDecorationLayerId = newLayerId;
+								mTilemapEditor->currentMap.addDecorationActor(mTilemapEditor->currentMap.createDecorationActor(loc.mId));
 							}
 
 							ImGui::CloseCurrentPopup();
@@ -178,7 +214,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 	if (showPopupPalette)
 	{
 		ImGui::Begin("Choose a floor tile", &showPopupPalette, ImGuiWindowFlags_AlwaysAutoResize);
-		if (mFloorAsset.draw())
+		if (mFloorPalette.draw())
 		{
 			showPopupPalette = false;
 
@@ -187,8 +223,8 @@ void EditorScreen::drawTilemapEditor(float dt)
 				auto mapWidth = mTilemapEditor->currentMap.getMapSize().x;
 				auto selectedID = mTilemapEditor->selectedTile.y * mapWidth +
 					mTilemapEditor->selectedTile.x;
-				mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId = mFloorAsset.getSelectedId();
-				mTilemapEditor->currentMap.updateFloorMap(selectedID, mFloorAsset.getSelectedId());
+				mTilemapEditor->currentMap.getLocation(selectedID).mFloorLayerId = mFloorPalette.getSelectedId();
+				mTilemapEditor->currentMap.updateFloorMap(selectedID, mFloorPalette.getSelectedId());
 			}
 		}
 		ImGui::End();
