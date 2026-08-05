@@ -74,9 +74,23 @@ void EditorScreen::drawTilemapEditor(float dt)
 			}
 		}
 
+		// Load a map from the file by its ID
 		else if (tilemapUIState == TilemapUIStates::LOAD)
 		{
-			ImGui::Text("Load a map");
+			static int mapIndex{ 0 };
+			ImGui::Text("Load the map from the file");
+			ImGui::InputInt("Map ID", &mapIndex);
+			
+			if (ImGui::Button("Load", ImVec2(200, 50)))
+			{
+				mMapManager.loadMap(mapIndex);
+				mTilemapEditor->currentMap = std::move(mMapManager.getCurrentMap());
+				mMapIsReady = true;
+				mCursor.setMapSize({ static_cast<int>(mMapManager.getCurrentMap().getMapSize().x), 
+					static_cast<int>(mMapManager.getCurrentMap().getMapSize().y) });
+				tilemapUIState = TilemapUIStates::EDIT;
+			}
+
 			if (ImGui::Button("BACK", ImVec2(200, 50)))
 			{
 				tilemapUIState = TilemapUIStates::SELECT;
