@@ -226,6 +226,14 @@ void EditorScreen::drawTilemapEditor(float dt)
 				ImGui::End();
 			}
 
+			// Move the Editor view
+			sf::Vector2f tilemapViewMovement{ 0.f, 0.f };
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) tilemapViewMovement.x -= TILEMAP_VIEW_SPEED * dt;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) tilemapViewMovement.x += TILEMAP_VIEW_SPEED * dt;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) tilemapViewMovement.y -= TILEMAP_VIEW_SPEED * dt;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) tilemapViewMovement.y += TILEMAP_VIEW_SPEED * dt;
+			mTilemapView.move(tilemapViewMovement);
+
 			mCursor.update(dt);
 		}
 

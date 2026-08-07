@@ -144,6 +144,12 @@ void EditorScreen::update(float dt)
 			}
 			ImGui::EndMenu();
 		}
+
+		// Show a path to the current project
+		float offsetX = ImGui::GetWindowWidth() - ImGui::CalcTextSize(mProjectPath.c_str()).x - 25.f;
+		ImGui::SameLine(offsetX, 0.f);
+		ImGui::TextDisabled(mProjectPath.c_str());
+
 		ImGui::EndMainMenuBar();
 	}
 
@@ -208,10 +214,12 @@ void EditorScreen::update(float dt)
 	/*ImGui::Begin("Mouse coords");
 	ImGui::Text(std::format("x:{}\ny:{}", sf::Mouse::getPosition().x, sf::Mouse::getPosition().y).c_str());
 	ImGui::End();*/
+	/*
 	ImGui::Begin("Tile cursor coords");
 	ImGui::Text(std::format("tile x:{}\ntile y:{}", mCursor.getTilePosition().x, 
 		mCursor.getTilePosition().y).c_str());
 	ImGui::End();
+	*/
 }
 
 /**

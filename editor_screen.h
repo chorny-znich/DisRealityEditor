@@ -40,6 +40,7 @@ private:
 
 	sf::View mMainView{ sf::FloatRect({0, 0}, {gd::GraphicsResolution.x, gd::GraphicsResolution.y}) };
 	sf::View mTilemapView;
+	float const TILEMAP_VIEW_SPEED{ 400.f };
 
 	bool mExitEditor{ false };
 	bool mShowStringEditor{ false };
@@ -48,7 +49,7 @@ private:
 	bool mShowOpenProjectModalWindow{ false };
 	char mProjectPathBuffer[512]{""};
 
-	dr::CursorComponent mCursor{mMainView};
+	dr::CursorComponent mCursor{mTilemapView};
 
 	dr::MapManager mMapManager;
 };
