@@ -163,6 +163,9 @@ void EditorScreen::update(float dt)
 	// Realisation
 	if (mExitEditor)
 	{
+		std::filesystem::current_path(EDITOR_PATH);
+		dr::Textures::init(mProjectPath + "data/texture_list.ini");
+		dr::SpriteDatabase::instance().init(mProjectPath + "data/tile_map.ini");
 		dr::ScreenManager::destroyScreen();
 	}
 

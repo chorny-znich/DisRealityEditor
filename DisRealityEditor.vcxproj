@@ -133,7 +133,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="about_screen.cpp" />
     <ClCompile Include="asset_palette.cpp" />
     <ClCompile Include="editor_screen.cpp" />
     <ClCompile Include="flat_ini_editor.cpp" />
@@ -145,11 +144,9 @@
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="main_menu_screen.cpp" />
     <ClCompile Include="tilemap_editor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="about_screen.h" />
     <ClInclude Include="asset_palette.h" />
     <ClInclude Include="editor_screen.h" />
     <ClInclude Include="editor_struct.h" />
@@ -162,7 +159,6 @@
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
-    <ClInclude Include="main_menu_screen.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config\engine_config.ini" />
