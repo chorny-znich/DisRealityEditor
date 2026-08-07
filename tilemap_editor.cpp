@@ -135,6 +135,13 @@ void EditorScreen::drawTilemapEditor(float dt)
 					ImGui::OpenPopup("decoration_palette_popup");
 				}
 
+				// Flag for the location passability
+				bool locIsPassable = mTilemapEditor->currentMap.getLocation(selectedID).mPassable;
+				if (ImGui::Checkbox("Location is passable", &locIsPassable))
+				{
+					mTilemapEditor->currentMap.getLocation(selectedID).mPassable = locIsPassable ? 1 : 0;
+				}
+
 				if (ImGui::BeginPopup("FloorPalettePopup", ImGuiWindowFlags_AlwaysAutoResize))
 				{
 					if (mFloorPalette.draw())
@@ -175,6 +182,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 									mTilemapEditor->currentMap.deleteArchitectureActor(loc.mId);
 								}
 								loc.mArchitectureLayerId = newLayerId;
+								loc.mPassable = 0;
 								mTilemapEditor->currentMap.addArchitectureActor(mTilemapEditor->currentMap.createArchitectureActor(loc.mId));
 							}
 
@@ -205,6 +213,7 @@ void EditorScreen::drawTilemapEditor(float dt)
 									mTilemapEditor->currentMap.deleteDecorationActor(loc.mId);
 								}
 								loc.mDecorationLayerId = newLayerId;
+								loc.mPassable = 0;
 								mTilemapEditor->currentMap.addDecorationActor(mTilemapEditor->currentMap.createDecorationActor(loc.mId));
 							}
 
