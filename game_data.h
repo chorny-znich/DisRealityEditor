@@ -8,6 +8,7 @@ namespace gd
 
   namespace path
   {
+    constexpr std::string_view ConfigPath = "config/editor_config.ini";
     constexpr std::string_view StringsPath = "data\\strings.ini";
   }
 }

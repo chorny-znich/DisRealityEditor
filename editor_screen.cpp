@@ -79,6 +79,13 @@ void EditorScreen::init()
 	sf::FloatRect viewBounds({ 0.f, 0.f }, { gd::GraphicsResolution.x, gd::GraphicsResolution.y });
 	mTilemapView = sf::View(viewBounds);
 	mTilemapView.setViewport(sf::FloatRect({ 0.f, topOffset }, { 1.f, 1.f - topOffset }));
+
+	// read from the configuration file
+	dr::IniDocument doc = dr::loadIniDocument(gd::path::ConfigPath.data());
+	dr::Section section = doc.getSection("project");
+	mProjectPath = section.at("last_project");
+	std::filesystem::current_path(mProjectPath);
+	changeProjectPath();
 }
 
 void EditorScreen::handleInput(const sf::Event& event, sf::RenderWindow& window)
@@ -194,11 +201,14 @@ void EditorScreen::update(float dt)
 					mProjectPath += '\\';
 				}
 				std::filesystem::current_path(mProjectPath);
-				dr::Textures::init(mProjectPath + "data/texture_list.ini");
-				dr::SpriteDatabase::instance().init(mProjectPath + "data/tile_map.ini");
-				mFloorPalette.init(dr::SpriteCategory::Floor);
-				mArchitecturePalette.init(dr::SpriteCategory::Architecture);
-				mDecorationPalette.init(dr::SpriteCategory::Decoration);
+				changeProjectPath();
+
+				// save the path to the current project to the config file
+				const std::string CONFIG_PATH = gd::path::ConfigPath.data();
+				std::string pathToEditor = EDITOR_PATH + '/' + CONFIG_PATH;
+				dr::IniDocument doc = dr::loadIniDocument(pathToEditor);
+				doc.addKeyValuePair("project", "last_project", mProjectPath);
+				dr::saveIniDocument(pathToEditor, doc);
 				
 				ImGui::CloseCurrentPopup();
 		}

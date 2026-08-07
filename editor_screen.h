@@ -45,6 +45,7 @@ private:
 	bool mExitEditor{ false };
 	bool mShowStringEditor{ false };
 
+	const std::string EDITOR_PATH{std::filesystem::current_path().string()};
 	std::string mProjectPath{};
 	bool mShowOpenProjectModalWindow{ false };
 	char mProjectPathBuffer[512]{""};
@@ -52,4 +53,6 @@ private:
 	dr::CursorComponent mCursor{mTilemapView};
 
 	dr::MapManager mMapManager;
+
+	void changeProjectPath();
 };

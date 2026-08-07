@@ -261,3 +261,15 @@ void EditorScreen::drawTilemapEditor(float dt)
 		ImGui::End();
 	}
 }
+
+/**
+ * @brief Initialize resources from the current project opened in the editor 
+ */
+void EditorScreen::changeProjectPath()
+{
+	dr::Textures::init(mProjectPath + "data/texture_list.ini");
+	dr::SpriteDatabase::instance().init(mProjectPath + "data/tile_map.ini");
+	mFloorPalette.init(dr::SpriteCategory::Floor);
+	mArchitecturePalette.init(dr::SpriteCategory::Architecture);
+	mDecorationPalette.init(dr::SpriteCategory::Decoration);
+}
