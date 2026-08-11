@@ -36,7 +36,6 @@ void EditorScreen::drawTilemapEditor(float dt)
 			static int mapIndex{ 0 };
 			static sf::Vector2i mapSize{ 0, 0 };
 			static int selectedFloorItem{ 0 };
-			
 
 			ImGui::InputInt("Map ID", &mapIndex);
 			ImGui::InputInt("Map width", &mapSize.x);
@@ -51,8 +50,6 @@ void EditorScreen::drawTilemapEditor(float dt)
 			{
 				showPopupPalette = true;
 			}
-
-			
 
 			ImGui::Separator();
 			if (ImGui::Button("Create map", ImVec2(200, 50)))
@@ -122,13 +119,14 @@ void EditorScreen::drawTilemapEditor(float dt)
 				{
 					ImGui::OpenPopup("FloorPalettePopup");
 				}
-				ImGui::Text("Level tile:");
+				ImGui::Text("Architecture tile:");
 				if (ImGui::ImageButton("##architecture_tile_inspector", mArchitecturePalette.getSelectedTexture(),
 					mArchitecturePalette.getButtonSpriteSize()))
 				{
 					ImGui::OpenPopup("architecture_palette_popup");
 				}
 
+				ImGui::Text("Decoration tile:");
 				if (ImGui::ImageButton("##decoration_tile_inspector", mDecorationPalette.getSelectedTexture(),
 					mDecorationPalette.getButtonSpriteSize()))
 				{
@@ -140,6 +138,31 @@ void EditorScreen::drawTilemapEditor(float dt)
 				if (ImGui::Checkbox("Location is passable", &locIsPassable))
 				{
 					mTilemapEditor->currentMap.getLocation(selectedID).mPassable = locIsPassable ? 1 : 0;
+				}
+
+				// Flag for the transfer location
+				bool locIsTransfer = mTilemapEditor->currentMap.getLocation(selectedID).isTransfer;
+				if (ImGui::Checkbox("Location is transfer", &locIsTransfer))
+				{
+					mTilemapEditor->currentMap.getLocation(selectedID).isTransfer = locIsTransfer ? 1 : 0;
+					if (locIsTransfer)
+					{
+						ImGui::OpenPopup("transfer_popup");
+					}
+					else
+					{
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetMapId = 0;
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetTilePos = {0, 0};
+					}
+				}
+
+				// Edit the transfer location data if location is  a transfer
+				if (locIsTransfer)
+				{
+					if (ImGui::Button("Edit transfer location"))
+					{
+						ImGui::OpenPopup("transfer_popup");
+					}
 				}
 
 				if (ImGui::BeginPopup("FloorPalettePopup", ImGuiWindowFlags_AlwaysAutoResize))
@@ -220,6 +243,48 @@ void EditorScreen::drawTilemapEditor(float dt)
 							ImGui::CloseCurrentPopup();
 						}
 					}
+					ImGui::EndPopup();
+				}
+
+				// Popup for the map transfer settings
+				if (ImGui::BeginPopupModal("transfer_popup", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					int transferMapIndex = mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetMapId;
+					int targetX = mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetTilePos.x;
+					int targetY = mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetTilePos.y;
+
+					if (ImGui::InputInt("Map index transfer to", &transferMapIndex))
+					{
+						transferMapIndex = std::clamp(transferMapIndex, 1, 1000);
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetMapId = transferMapIndex;
+					}
+					
+					if (ImGui::InputInt("x coord of tile map", &targetX))
+					{
+						targetX = std::clamp(targetX, 1, 1000);
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetTilePos.x = targetX;
+					}
+					
+					if (ImGui::InputInt("y coord of tile map", &targetY))
+					{
+						targetY = std::clamp(targetY, 1, 1000);
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetTilePos.y = targetY;
+					}
+					
+					if (ImGui::Button("Apply"))
+					{
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetMapId = transferMapIndex;
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetTilePos.x = targetX;
+						mTilemapEditor->currentMap.getLocation(selectedID).mapTransfer.targetTilePos.y = targetY;
+						ImGui::CloseCurrentPopup();
+					}
+					ImGui::SameLine();
+					if (ImGui::Button("Cancel"))
+					{
+						ImGui::CloseCurrentPopup();
+						mTilemapEditor->currentMap.getLocation(selectedID).isTransfer = 0;
+					}
+
 					ImGui::EndPopup();
 				}
 
